@@ -4,6 +4,7 @@ require_relative "num_decouverte_personnalite/version"
 
 module NumDecouvertePersonnalite
   class Error < StandardError; end
+
   VALEURS = {
     "A" => 1, "B" => 2, "C" => 3, "D" => 4, "E" => 5, "F" => 6, "G" => 7, "H" => 8, "I" => 9,
     "J" => 1, "K" => 2, "L" => 3, "M" => 4, "N" => 5, "O" => 6, "P" => 7, "Q" => 8, "R" => 9,
@@ -15,6 +16,18 @@ module NumDecouvertePersonnalite
     "Ô" => 6, "Ö" => 6,
     "Â" => 9, "À" => 9
   }.freeze
+
+  NOMBRE = {
+    1 => "1",
+    2 => "2",
+    3 => "3",
+    4 => "4",
+    5 => "5",
+    6 => "6",
+    7 => "7",
+    8 => "8",
+    9 => "9",
+  }
 
   MAITRE_NOMBRE = {
     11 => "11/2", # "\e[34m#{nombre}\e[0m" bleu
@@ -31,8 +44,8 @@ module NumDecouvertePersonnalite
 
   # Génère tous les nombres de 12 à max dont la réduction théosophique directe (somme des chiffres)
   # donne un résultat entre 1 et 9, en excluant les nombres maîtres et karmiques.
-  # Les nombres comme 28 (2+8=10), 91 (9+1=10), etc. sont ignorés car leur première
-  # réduction ne donne pas directement 1 à 9.
+  # Les nombres comme 28 (2+8=10), 91 (9+1=10), etc. sont ignorés, car leur première
+  # réduction ne donne pas directement 1 à 9 !
   def self.generate_octave(max = 10_000)
     exclus = MAITRE_NOMBRE.keys + NOMBRE_KARMIQUE.keys
     (12..max).each_with_object({}) do |n, hash|
@@ -45,10 +58,18 @@ module NumDecouvertePersonnalite
 
   OCTAVE = generate_octave.freeze
 
+  TOUS_LES_NOMBRES = {
+    **NOMBRE,
+    **MAITRE_NOMBRE,
+    **NOMBRE_KARMIQUE,
+    **OCTAVE
+  }.freeze
+
   module Nature
-    Voyelle = :voyelle
-    Consonne = :consonne
-    Tout = :tout
+    VOYELLE   = :voyelle
+    CONSONNE  = :consonne
+    TOUT      = :tout
+    ALL = [VOYELLE, CONSONNE, TOUT].freeze
   end
   # gem "num_decouverte_personalite", path: "/chemin/vers/num_decouverte_personalite"
   #---
@@ -73,12 +94,13 @@ module NumDecouvertePersonnalite
     VALEURS[lettre.upcase]
   end
 
-  def self.niveau_1(string, nature = Nature::Voyelle)
+  def self.niveau_1(string, nature = Nature::VOYELLE)
+    raise ArgumentError unless Nature::ALL.include?(nature)
     string.chars.map do |lettre|
       est_voyelle = %w[A E I O U Y É È Ê Ë Â À].include?(lettre.upcase)
-      if nature == Nature::Voyelle && est_voyelle
+      if nature == Nature::VOYELLE && est_voyelle
         valeur_lettre(lettre) || "_"
-      elsif nature == Nature::Consonne && !est_voyelle
+      elsif nature == Nature::CONSONNE && !est_voyelle
         valeur_lettre(lettre) || "_"
       else
         "_"

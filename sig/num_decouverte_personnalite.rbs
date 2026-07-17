@@ -1,5 +1,15 @@
 module NumDecouvertePersonnalite
+  module Nature
+    VOYELLE: Symbol
+    CONSONNE: Symbol
+    TOUT: Symbol
+    ALL: Array[Symbol]
+  end
+  MAITRE_NOMBRE: Hash[Integer, String]
+  NOMBRE: Hash[Integer, String]
+  NOMBRE_KARMIQUE: Hash[Integer, String]
   OCTAVE: Hash[Integer, String]
+  TOUS_LES_NOMBRES: Hash[Integer, String]
   VERSION: String
   VALEURS: Hash[String, Integer]
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
