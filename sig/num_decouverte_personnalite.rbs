@@ -1,4 +1,4 @@
-module NumDecouvertePersonalite
+module NumDecouvertePersonnalite
   VERSION: String
   VALEURS: Hash[String, Integer]
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
