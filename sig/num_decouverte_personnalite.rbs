@@ -18,5 +18,8 @@ module NumDecouvertePersonnalite
   def self.generate_octave: -> Hash[Integer, String]
 
   def self.separate: (String) -> Array[String]
+
+  def self.theosophique: -> Integer
+
   def self.valeur_lettre: (String) -> Integer?
 end
