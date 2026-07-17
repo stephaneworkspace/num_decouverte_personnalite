@@ -102,6 +102,8 @@ module NumDecouvertePersonnalite
         valeur_lettre(lettre) || "_"
       elsif nature == Nature::CONSONNE && !est_voyelle
         valeur_lettre(lettre) || "_"
+      elsif nature == Nature::TOUT
+        valeur_lettre(lettre) || "_"
       else
         "_"
       end
