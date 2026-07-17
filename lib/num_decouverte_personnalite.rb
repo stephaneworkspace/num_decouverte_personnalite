@@ -29,46 +29,21 @@ module NumDecouvertePersonnalite
     19 => "19/1"
   }
 
-  OCTAVE = {
-    12 => "12/3",
-    15 => "15/6",
-    17 => "17/8",
-    20 => "20/2",
-    21 => "21/3",
-    23 => "23/5",
-    24 => "24/6",
-    25 => "25/7",
-    26 => "26/8",
-    27 => "27/9",
-    30 => "30/3",
-    31 => "31/4",
-    32 => "32/5",
-    34 => "34/7",
-    35 => "35/8",
-    36 => "36/9",
-    40 => "40/4",
-    41 => "41/5",
-    42 => "42/6",
-    43 => "43/7",
-    44 => "44/8",
-    45 => "45/9",
-    50 => "50/5",
-    51 => "51/6",
-    52 => "52/7",
-    53 => "53/8",
-    54 => "54/9",
-    60 => "60/6",
-    61 => "61/7",
-    62 => "62/8",
-    63 => "63/9",
-    70 => "70/7",
-    71 => "71/8",
-    72 => "72/9",
-    80 => "80/8",
-    81 => "81/9",
-    90 => "90/9",
-    100 => "100/1"
-  }.freeze
+  # Génère tous les nombres de 12 à max dont la réduction théosophique directe (somme des chiffres)
+  # donne un résultat entre 1 et 9, en excluant les nombres maîtres et karmiques.
+  # Les nombres comme 28 (2+8=10), 91 (9+1=10), etc. sont ignorés car leur première
+  # réduction ne donne pas directement 1 à 9.
+  def self.generate_octave(max = 10_000)
+    exclus = MAITRE_NOMBRE.keys + NOMBRE_KARMIQUE.keys
+    (12..max).each_with_object({}) do |n, hash|
+      next if exclus.include?(n)
+      somme = n.digits.sum
+      next if somme > 9
+      hash[n] = "#{n}/#{somme}"
+    end
+  end
+
+  OCTAVE = generate_octave.freeze
 
   module Nature
     Voyelle = :voyelle

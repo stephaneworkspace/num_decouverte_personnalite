@@ -11,6 +11,38 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   #  assert false
   # end
 
+  def test_octave
+    octave = ::NumDecouvertePersonnalite::OCTAVE
+
+    # Inclus : somme directe des chiffres = 1 à 9
+    assert_equal "12/3",    octave[12]   # 1+2=3
+    assert_equal "15/6",    octave[15]   # 1+5=6
+    assert_equal "17/8",    octave[17]   # 1+7=8
+    assert_equal "18/9",    octave[18]   # 1+8=9  (absent de l'ancien hash manuel)
+    assert_equal "20/2",    octave[20]   # 2+0=2
+    assert_equal "27/9",    octave[27]   # 2+7=9
+    assert_equal "45/9",    octave[45]   # 4+5=9
+    assert_equal "100/1",   octave[100]  # 1+0+0=1
+    assert_equal "1000/1",  octave[1000] # 1+0+0+0=1
+    assert_equal "10000/1", octave[10000] # 1+0+0+0+0=1
+
+    # Exclus : somme > 9
+    assert_nil octave[28]   # 2+8=10
+    assert_nil octave[37]   # 3+7=10
+    assert_nil octave[91]   # 9+1=10
+    assert_nil octave[82]   # 8+2=10
+
+    # Exclus : nombres maîtres
+    assert_nil octave[22]
+    assert_nil octave[33]
+
+    # Exclus : nombres karmiques
+    assert_nil octave[13]
+    assert_nil octave[14]
+    assert_nil octave[16]
+    assert_nil octave[19]
+  end
+
   def test_it_separates_correctly
     assert_equal %w[Jean Henri], ::NumDecouvertePersonnalite.separate("Jean-Henri")
     assert_equal %w[Jean Henri], ::NumDecouvertePersonnalite.separate("Jean Henri")
