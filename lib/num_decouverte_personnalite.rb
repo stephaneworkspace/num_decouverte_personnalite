@@ -144,7 +144,12 @@ module NumDecouvertePersonnalite
     unless niveau_2[:final]
       sum = niveau_2[:sum].digits.sum
       niveau_3 = self.niveau_superieur(sum.to_s)
+      unless niveau_3[:final]
+        sum = niveau_3[:sum].digits.sum
+        niveau_4 = self.niveau_superieur(sum.to_s)
+      end
     end
+    puts niveau_4
     puts niveau_3
     puts niveau_2
     puts niveau_1
