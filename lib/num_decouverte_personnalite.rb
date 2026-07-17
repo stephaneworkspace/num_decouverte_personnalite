@@ -107,4 +107,23 @@ module NumDecouvertePersonnalite
       end
     end.join
   end
+
+  def self.extract_niveau(niveau_precedant)
+    niveau_precedant.scan(/\d+/).map(&:to_i)
+  end
+
+  def self.niveau_superieur(niveau_precedant)
+    sum = self.extract_niveau(niveau_precedant).sum
+    {
+      sum: sum,
+      final: sum >= 1 && sum <= 9
+    }
+  end
+
+  def self.hello()
+    niveau_1 = self.niveau_1("Stéphane", NumDecouvertePersonnalite::Nature::VOYELLE)
+    niveau_2 = self.niveau_superieur(niveau_1)
+    puts niveau_2
+    puts niveau_1
+  end
 end

@@ -13,6 +13,8 @@ module NumDecouvertePersonnalite
   VERSION: String
   VALEURS: Hash[String, Integer]
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  def self.extract_niveau: -> Array[Integer]
+
   def self.generate_octave: -> Hash[Integer, String]
 
   def self.separate: (String) -> Array[String]
