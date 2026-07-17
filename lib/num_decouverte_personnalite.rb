@@ -94,7 +94,7 @@ module NumDecouvertePersonnalite
     VALEURS[lettre.upcase]
   end
 
-  def self.niveau_1(string, nature = Nature::VOYELLE)
+  def self.niveau_1(string, nature)
     raise ArgumentError unless Nature::ALL.include?(nature)
     string.chars.map do |lettre|
       est_voyelle = %w[A E I O U Y É È Ê Ë Â À].include?(lettre.upcase)
@@ -116,6 +116,14 @@ module NumDecouvertePersonnalite
     end
   end
 
+  def self.extract_niveau2(niveau_precedant)
+    if niveau_precedant.include?("/")
+      niveau_precedant.split("/").map(&:to_i)
+    else
+      niveau_precedant.scan(/\d/).map(&:to_i)
+    end
+  end
+
   def self.theosophique(nombre)
     while nombre > 9
       nombre = nombre.digits.sum
@@ -126,7 +134,7 @@ module NumDecouvertePersonnalite
 
   def self.niveau_superieur(niveau_precedant)
     all = self::TOUS_LES_NOMBRES
-    sum = self.extract_niveau(niveau_precedant).sum
+    sum = self.extract_niveau2(niveau_precedant).sum
     final = sum >= 1 && sum <= 9
     unless final
       if all[sum] == nil
@@ -144,17 +152,21 @@ module NumDecouvertePersonnalite
   end
 
   def self.chaine_de_caractere_individuelle(string, nature)
+    nombre_presentation = nil;
     nombre_reduit = 0
     sw_octave = nil
     niveau = self.niveau_1(
       string,
       nature
     )
+    puts niveau
 
     niveaux = [niveau]
     loop do
       resultat = self.niveau_superieur(niveau)
+      puts resultat
       niveaux << resultat
+      nombre_presentation = resultat[:octave]
       nombre_reduit = resultat[:last]
       sw_octave = resultat[:last] == resultat[:octave]
       break if resultat[:final]
@@ -162,6 +174,7 @@ module NumDecouvertePersonnalite
     end
 
     {
+      nombre_presentation: nombre_presentation,
       nombre_reduit: nombre_reduit,
       sw_octave:
     }
