@@ -17,4 +17,9 @@ module NumDecouvertePersonalite
   def self.transform(prenom_actif, prenom_secondaire, nom_de_famille)
     "#{prenom_actif} #{prenom_secondaire} #{nom_de_famille}"
   end
+
+  # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
+  def self.separe(string)
+    string.split(/[\s-]+/)
+  end
 end
