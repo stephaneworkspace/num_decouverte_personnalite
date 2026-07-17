@@ -1,5 +1,7 @@
 module NumDecouvertePersonalite
   VERSION: String
+  VALEURS: Hash[String, Integer]
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
   def self.separeate: (String) -> Array[String]
+  def self.valeur_lettre: (String) -> Integer?
 end
