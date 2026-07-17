@@ -173,7 +173,7 @@ module NumDecouvertePersonnalite
     end
 
     if nature == Nature::VOYELLE
-      puts "Voyelle"
+      puts "Voyelle #{string}"
       niveaux.reverse.each_with_index do |n, index|
         if n.is_a?(Hash) && n.key?(:last)
           puts "Niveau #{index + 1}: #{n[:octave]}"
@@ -183,9 +183,9 @@ module NumDecouvertePersonnalite
       end
     elsif nature == Nature::CONSONNE || Nature::TOUT
       if nature == Nature::CONSONNE
-        puts "Consonne"
+        puts "Consonne #{string}"
       else
-        puts "Tout"
+        puts "Tout #{string}"
       end
       niveaux.each_with_index do |n, index|
         if n.is_a?(Hash) && n.key?(:last)
@@ -197,7 +197,7 @@ module NumDecouvertePersonnalite
     else
       puts "Unreachable"
     end
-
+    puts ""
 
 
     {
