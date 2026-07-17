@@ -15,6 +15,12 @@ module NumDecouvertePersonnalite
     "Ô" => 6, "Ö" => 6,
     "Â" => 9, "À" => 9
   }.freeze
+
+  module Nature
+    Voyelle = :voyelle
+    Consonne = :consonne
+    Tout = :tout
+  end
   # gem "num_decouverte_personalite", path: "/chemin/vers/num_decouverte_personalite"
   #---
   # bundle install
@@ -30,11 +36,24 @@ module NumDecouvertePersonnalite
   end
 
   # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
-  def self.separeate(string)
+  def self.separate(string)
     string.split(/[\s-]+/)
   end
 
   def self.valeur_lettre(lettre)
     VALEURS[lettre.upcase]
+  end
+
+  def self.niveau_1(string, nature = Nature::Voyelle)
+    string.chars.map do |lettre|
+      est_voyelle = %w[A E I O U Y É È Ê Ë Â À].include?(lettre.upcase)
+      if nature == Nature::Voyelle && est_voyelle
+        valeur_lettre(lettre) || "_"
+      elsif nature == Nature::Consonne && !est_voyelle
+        valeur_lettre(lettre) || "_"
+      else
+        "_"
+      end
+    end.join
   end
 end

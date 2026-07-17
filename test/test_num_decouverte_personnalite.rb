@@ -12,9 +12,9 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   # end
 
   def test_it_separates_correctly
-    assert_equal %w[Jean Henri], ::NumDecouvertePersonnalite.separeate("Jean-Henri")
-    assert_equal %w[Jean Henri], ::NumDecouvertePersonnalite.separeate("Jean Henri")
-    assert_equal %w[Jean Paul Henri], ::NumDecouvertePersonnalite.separeate("Jean-Paul Henri")
+    assert_equal %w[Jean Henri], ::NumDecouvertePersonnalite.separate("Jean-Henri")
+    assert_equal %w[Jean Henri], ::NumDecouvertePersonnalite.separate("Jean Henri")
+    assert_equal %w[Jean Paul Henri], ::NumDecouvertePersonnalite.separate("Jean-Paul Henri")
   end
 
   def test_lettre
