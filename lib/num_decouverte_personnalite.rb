@@ -134,24 +134,22 @@ module NumDecouvertePersonnalite
     }
   end
 
-  def self.niveau_superieur_infini(niveau_precedant)
+  def self.hello
+    niveau = self.niveau_1(
+      "StéphaneGHDFEEEEEEEEGJHDSHJFHJDSHJFJKHSKHJFSDASBGDgkjdsjkgdsjkgkjsdkjgdskjgsSIJGJKL",
+      NumDecouvertePersonnalite::Nature::VOYELLE
+    )
 
-  end
-
-  def self.hello()
-    niveau_1 = self.niveau_1("StéphaneGHDFEEEEEEEEGJHDSHJFHJDSHJFJKHSKHJFSDASBGDgkjdsjkgdsjkgkjsdkjgdskjgsSIJGJKL", NumDecouvertePersonnalite::Nature::VOYELLE)
-    niveau_2 = self.niveau_superieur(niveau_1)
-    unless niveau_2[:final]
-      sum = niveau_2[:sum].digits.sum
-      niveau_3 = self.niveau_superieur(sum.to_s)
-      unless niveau_3[:final]
-        sum = niveau_3[:sum].digits.sum
-        niveau_4 = self.niveau_superieur(sum.to_s)
-      end
+    niveaux = [niveau]
+    loop do
+      resultat = self.niveau_superieur(niveau)
+      niveaux << resultat
+      break if resultat[:final]
+      niveau = resultat[:sum].digits.sum.to_s
     end
-    puts niveau_4
-    puts niveau_3
-    puts niveau_2
-    puts niveau_1
+
+    niveaux.reverse.each_with_index do |n, index|
+      puts "Niveau #{index + 1}: #{n}"
+    end
   end
 end
