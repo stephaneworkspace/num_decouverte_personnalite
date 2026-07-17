@@ -116,6 +116,14 @@ module NumDecouvertePersonnalite
     end
   end
 
+  def self.theosophique(nombre)
+    while nombre > 9
+      nombre = nombre.digits.sum
+    end
+
+    nombre
+  end
+
   def self.niveau_superieur(niveau_precedant)
     all = self::TOUS_LES_NOMBRES
     sum = self.extract_niveau(niveau_precedant).sum
@@ -129,6 +137,7 @@ module NumDecouvertePersonnalite
     end
     {
       sum: sum,
+      last: final ? self.theosophique(sum) : nil,
       octave: all[sum],
       final: final
     }
