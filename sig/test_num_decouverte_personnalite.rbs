@@ -1,11 +1,13 @@
 class TestNumDecouvertePersonnalite
-  def test_it_does_something_useful: -> true
+  def test_it_does_something_useful: -> Void
 
-  def test_it_separates_correctly: -> true
+  def test_it_separates_correctly: -> Void
 
-  def test_octave: -> true
+  def test_octave: -> Void
 
-  def test_that_it_has_a_version_number: -> true
+  def test_that_it_has_a_version_number: -> Void
 
-  def test_lettre: -> true
+  def test_lettre: -> Void
+
+  def test_vibration_de_noms: -> Void
 end

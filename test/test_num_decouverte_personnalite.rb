@@ -130,16 +130,17 @@ class TestNumDecouvertePersonnalite < Minitest::Test
 
   def test_vibration_de_noms
     # Stéphane
-    # Voyelle: 7
-    # Consonne: 23/5
-    # Total: 30/3
+    # Voyelle  7
+    # Consonne 23/5
+    # Total    30/3
     stephane_voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle("Stéphane", NumDecouvertePersonnalite::Nature::VOYELLE)
     stephane_consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle("Stéphane", NumDecouvertePersonnalite::Nature::CONSONNE)
     stephane_total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle("Stéphane", NumDecouvertePersonnalite::Nature::TOUT)
     assert_equal 7, stephane_voyelle[:nombre_reduit]
-    assert_equal "23/5", stephane_consonne[:nombre_presentation]
+    assert_equal "7", stephane_voyelle[:nombre_presentation]
     assert_equal 5, stephane_consonne[:nombre_reduit]
-    assert_equal "30/3", stephane_total[:nombre_presentation]
+    assert_equal "23/5", stephane_consonne[:nombre_presentation]
     assert_equal 3, stephane_total[:nombre_reduit]
+    assert_equal "30/3", stephane_total[:nombre_presentation]
   end
 end
