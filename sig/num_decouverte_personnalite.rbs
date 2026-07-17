@@ -1,5 +1,5 @@
 module NumDecouvertePersonalite
   VERSION: String
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
-  def self.separe: (String) -> Array[String]
+  def self.separeate: (String) -> Array[String]
 end

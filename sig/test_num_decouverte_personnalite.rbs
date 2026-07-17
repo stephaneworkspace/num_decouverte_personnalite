@@ -1,4 +1,4 @@
-class TestNumDecouvertePersonalite
+class TestNumDecouvertePersonnalite
   def test_it_does_something_useful: -> true
 
   def test_it_separates_correctly: -> true

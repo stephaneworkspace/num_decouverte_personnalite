@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "num_decouverte_personalite/version"
+require_relative "num_decouverte_personnalite/version"
 
-module NumDecouvertePersonalite
+module NumDecouvertePersonnalite
   class Error < StandardError; end
   # gem "num_decouverte_personalite", path: "/chemin/vers/num_decouverte_personalite"
   #---
@@ -19,7 +19,7 @@ module NumDecouvertePersonalite
   end
 
   # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
-  def self.separe(string)
+  def self.separeate(string)
     string.split(/[\s-]+/)
   end
 end
