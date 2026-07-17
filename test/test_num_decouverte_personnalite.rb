@@ -138,10 +138,13 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
     assert_equal 7, voyelle[:nombre_reduit]
     assert_equal "7", voyelle[:nombre_presentation]
+    assert_equal "__1__1_5", voyelle[:ligne_caractere_vers_chiffre]
     assert_equal 5, consonne[:nombre_reduit]
     assert_equal "23/5", consonne[:nombre_presentation]
+    assert_equal "12_78_5_", consonne[:ligne_caractere_vers_chiffre]
     assert_equal 3, total[:nombre_reduit]
     assert_equal "30/3", total[:nombre_presentation]
+    assert_equal "12178155", total[:ligne_caractere_vers_chiffre]
 
     nom = "Thomas"
     # Voyelle  7

@@ -153,6 +153,7 @@ module NumDecouvertePersonnalite
     hash = {
       presentation: nil,
       nombre_reduit: 0,
+      ligne_caractere_vers_chiffre: ""
     }
     sw_octave = nil
     niveau = self.niveau_1(
@@ -171,12 +172,17 @@ module NumDecouvertePersonnalite
       niveau = resultat[:sum].digits.sum.to_s
     end
     niveaux.reverse.each_with_index do |n, index|
-      puts "Niveau #{index + 1}: #{n}"
+      if n.is_a?(Hash) && n.key?(:last)
+        puts "Niveau #{index + 1}: #{n[:octave]}"
+      else
+        puts "Niveau #{index + 1}: #{n}"
+      end
     end
 
     {
       nombre_presentation: hash[:presentation],
       nombre_reduit: hash[:nombre_reduit],
+      ligne_caractere_vers_chiffre: niveaux.first
       # sw_octave: sw_octave
     }
   end
