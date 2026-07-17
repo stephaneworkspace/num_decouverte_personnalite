@@ -129,18 +129,44 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   end
 
   def test_vibration_de_noms
-    # Stéphane
+    nom = "Stéphane"
     # Voyelle  7
     # Consonne 23/5
     # Total    30/3
-    stephane_voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle("Stéphane", NumDecouvertePersonnalite::Nature::VOYELLE)
-    stephane_consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle("Stéphane", NumDecouvertePersonnalite::Nature::CONSONNE)
-    stephane_total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle("Stéphane", NumDecouvertePersonnalite::Nature::TOUT)
-    assert_equal 7, stephane_voyelle[:nombre_reduit]
-    assert_equal "7", stephane_voyelle[:nombre_presentation]
-    assert_equal 5, stephane_consonne[:nombre_reduit]
-    assert_equal "23/5", stephane_consonne[:nombre_presentation]
-    assert_equal 3, stephane_total[:nombre_reduit]
-    assert_equal "30/3", stephane_total[:nombre_presentation]
+    voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::VOYELLE)
+    consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::CONSONNE)
+    total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
+    assert_equal 7, voyelle[:nombre_reduit]
+    assert_equal "7", voyelle[:nombre_presentation]
+    assert_equal 5, consonne[:nombre_reduit]
+    assert_equal "23/5", consonne[:nombre_presentation]
+    assert_equal 3, total[:nombre_reduit]
+    assert_equal "30/3", total[:nombre_presentation]
+    nom = "Thomas"
+    # Voyelle  7
+    # Consonne 15/6
+    # Total    22/4
+    voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::VOYELLE)
+    consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::CONSONNE)
+    total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
+    assert_equal 7, voyelle[:nombre_reduit]
+    assert_equal "7", voyelle[:nombre_presentation]
+    assert_equal 6, consonne[:nombre_reduit]
+    assert_equal "15/6", consonne[:nombre_presentation]
+    assert_equal 4, total[:nombre_reduit]
+    assert_equal "22/4", total[:nombre_presentation]
+    nom = "Bressani"
+    # Voyelle  15/6
+    # Consonne 18/9
+    # Total    33/6
+    voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::VOYELLE)
+    consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::CONSONNE)
+    total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
+    assert_equal 6, voyelle[:nombre_reduit]
+    assert_equal "15/6", voyelle[:nombre_presentation]
+    assert_equal 9, consonne[:nombre_reduit]
+    assert_equal "18/9", consonne[:nombre_presentation]
+    assert_equal 6, total[:nombre_reduit]
+    assert_equal "33/6", total[:nombre_presentation]
   end
 end
