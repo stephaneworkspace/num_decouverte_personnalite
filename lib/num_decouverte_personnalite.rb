@@ -142,8 +142,10 @@ module NumDecouvertePersonnalite
     niveau_1 = self.niveau_1("StéphaneGHDFEEEEEEEEGJHDSHJFHJDSHJFJKHSKHJFSDASBGDgkjdsjkgdsjkgkjsdkjgdskjgsSIJGJKL", NumDecouvertePersonnalite::Nature::VOYELLE)
     niveau_2 = self.niveau_superieur(niveau_1)
     unless niveau_2[:final]
-      niveau_3 = self.niveau_superieur(niveau_2[:sum].to_s)
+      sum = niveau_2[:sum].digits.sum
+      niveau_3 = self.niveau_superieur(sum.to_s)
     end
+    puts niveau_3
     puts niveau_2
     puts niveau_1
   end
