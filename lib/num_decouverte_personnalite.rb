@@ -117,19 +117,32 @@ module NumDecouvertePersonnalite
   end
 
   def self.niveau_superieur(niveau_precedant)
+    all = self::TOUS_LES_NOMBRES
     sum = self.extract_niveau(niveau_precedant).sum
+    final = sum >= 1 && sum <= 9
+    unless final
+      if all[sum] == nil
+        # continue
+      else
+        final = all[sum].include?("/")
+      end
+    end
     {
       sum: sum,
-      final: sum >= 1 && sum <= 9
+      octave: all[sum],
+      final: final
     }
   end
 
+  def self.niveau_superieur_infini(niveau_precedant)
+
+  end
+
   def self.hello()
-    niveau_1 = self.niveau_1("StéphaneASBGDSIJGJKL", NumDecouvertePersonnalite::Nature::VOYELLE)
+    niveau_1 = self.niveau_1("StéphaneGHDFEEEEEEEEGJHDSHJFHJDSHJFJKHSKHJFSDASBGDgkjdsjkgdsjkgkjsdkjgdskjgsSIJGJKL", NumDecouvertePersonnalite::Nature::VOYELLE)
     niveau_2 = self.niveau_superieur(niveau_1)
     unless niveau_2[:final]
       niveau_3 = self.niveau_superieur(niveau_2[:sum].to_s)
-      puts niveau_3
     end
     puts niveau_2
     puts niveau_1
