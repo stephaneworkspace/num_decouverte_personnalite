@@ -164,19 +164,18 @@ module NumDecouvertePersonnalite
       niveaux << resultat
       hash[:presentation] = resultat[:octave]
       hash[:nombre_reduit] = resultat[:last]
-      sw_octave = resultat[:last] == resultat[:octave]
+      # sw_octave = resultat[:last] == resultat[:octave]
       break if resultat[:final]
       niveau = resultat[:sum].digits.sum.to_s
+    end
+    niveaux.reverse.each_with_index do |n, index|
+      puts "Niveau #{index + 1}: #{n}"
     end
 
     {
       nombre_presentation: hash[:presentation],
       nombre_reduit: hash[:nombre_reduit],
-      sw_octave: sw_octave
+      # sw_octave: sw_octave
     }
-
-    # niveaux.reverse.each_with_index do |n, index|
-    #  puts "Niveau #{index + 1}: #{n}"
-    # end
   end
 end
