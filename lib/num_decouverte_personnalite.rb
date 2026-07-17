@@ -109,18 +109,14 @@ module NumDecouvertePersonnalite
   end
 
   def self.extract_niveau(niveau_precedant)
-    if niveau_precedant.include?("/")
-      niveau_precedant.split("/").map(&:to_i)
-    else
+    if niveau_precedant.match?(/[A-Za-zÀ-ÿ]/)
       niveau_precedant.scan(/\d+/).map(&:to_i)
-    end
-  end
-
-  def self.extract_niveau2(niveau_precedant)
-    if niveau_precedant.include?("/")
-      niveau_precedant.split("/").map(&:to_i)
     else
-      niveau_precedant.scan(/\d/).map(&:to_i)
+      if niveau_precedant.include?("/")
+        niveau_precedant.split("/").map(&:to_i)
+      else
+        niveau_precedant.scan(/\d/).map(&:to_i)
+      end
     end
   end
 
@@ -134,7 +130,7 @@ module NumDecouvertePersonnalite
 
   def self.niveau_superieur(niveau_precedant)
     all = self::TOUS_LES_NOMBRES
-    sum = self.extract_niveau2(niveau_precedant).sum
+    sum = self.extract_niveau(niveau_precedant).sum
     final = sum >= 1 && sum <= 9
     unless final
       if all[sum] == nil
@@ -159,12 +155,10 @@ module NumDecouvertePersonnalite
       string,
       nature
     )
-    puts niveau
 
     niveaux = [niveau]
     loop do
       resultat = self.niveau_superieur(niveau)
-      puts resultat
       niveaux << resultat
       nombre_presentation = resultat[:octave]
       nombre_reduit = resultat[:last]
