@@ -171,13 +171,34 @@ module NumDecouvertePersonnalite
       break if resultat[:final]
       niveau = resultat[:sum].digits.sum.to_s
     end
-    niveaux.reverse.each_with_index do |n, index|
-      if n.is_a?(Hash) && n.key?(:last)
-        puts "Niveau #{index + 1}: #{n[:octave]}"
-      else
-        puts "Niveau #{index + 1}: #{n}"
+
+    if nature == Nature::VOYELLE
+      puts "Voyelle"
+      niveaux.reverse.each_with_index do |n, index|
+        if n.is_a?(Hash) && n.key?(:last)
+          puts "Niveau #{index + 1}: #{n[:octave]}"
+        else
+          puts "Niveau #{index + 1}: #{n}"
+        end
       end
+    elsif nature == Nature::CONSONNE || Nature::TOUT
+      if nature == Nature::CONSONNE
+        puts "Consonne"
+      else
+        puts "Tout"
+      end
+      niveaux.each_with_index do |n, index|
+        if n.is_a?(Hash) && n.key?(:last)
+          puts "Niveau #{index + 1}: #{n[:octave]}"
+        else
+          puts "Niveau #{index + 1}: #{n}"
+        end
+      end
+    else
+      puts "Unreachable"
     end
+
+
 
     {
       nombre_presentation: hash[:presentation],
