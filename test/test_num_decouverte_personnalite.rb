@@ -127,4 +127,10 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("â".upcase)
     assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("à".upcase)
   end
+
+  def test_vibration_de_noms
+    stephane_voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle("Stéphane", NumDecouvertePersonnalite::Nature::VOYELLE)
+    assert_equal 7, stephane_voyelle[:nombre_reduit]
+    assert_equal false, stephane_voyelle[:sw_octave]
+  end
 end

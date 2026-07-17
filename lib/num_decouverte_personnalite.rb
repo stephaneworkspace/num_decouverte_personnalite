@@ -143,22 +143,31 @@ module NumDecouvertePersonnalite
     }
   end
 
-  def self.hello
+  def self.chaine_de_caractere_individuelle(string, nature)
+    nombre_reduit = 0
+    sw_octave = nil
     niveau = self.niveau_1(
-      "StéphaneGHDFEEEEEEEEGJHDSHJFHJDSHJFJKHSKHJFSDASBGDgkjdsjkgdsjkgkjsdkjgdskjgsSIJGJKL",
-      NumDecouvertePersonnalite::Nature::VOYELLE
+      string,
+      nature
     )
 
     niveaux = [niveau]
     loop do
       resultat = self.niveau_superieur(niveau)
       niveaux << resultat
+      nombre_reduit = resultat[:last]
+      sw_octave = resultat[:last] == resultat[:octave]
       break if resultat[:final]
       niveau = resultat[:sum].digits.sum.to_s
     end
 
-    niveaux.reverse.each_with_index do |n, index|
-      puts "Niveau #{index + 1}: #{n}"
-    end
+    {
+      nombre_reduit: nombre_reduit,
+      sw_octave:
+    }
+
+    # niveaux.reverse.each_with_index do |n, index|
+    #  puts "Niveau #{index + 1}: #{n}"
+    # end
   end
 end
