@@ -142,6 +142,7 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "23/5", consonne[:nombre_presentation]
     assert_equal 3, total[:nombre_reduit]
     assert_equal "30/3", total[:nombre_presentation]
+
     nom = "Thomas"
     # Voyelle  7
     # Consonne 15/6
@@ -155,6 +156,7 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "15/6", consonne[:nombre_presentation]
     assert_equal 4, total[:nombre_reduit]
     assert_equal "22/4", total[:nombre_presentation]
+
     nom = "Bressani"
     # Voyelle  15/6
     # Consonne 18/9
@@ -168,5 +170,19 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "18/9", consonne[:nombre_presentation]
     assert_equal 6, total[:nombre_reduit]
     assert_equal "33/6", total[:nombre_presentation]
+
+    nom = "Pedroli"
+    # Voyelle  20/2
+    # Consonne 23/5
+    # Total    43/7
+    voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::VOYELLE)
+    consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::CONSONNE)
+    total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
+    assert_equal 2, voyelle[:nombre_reduit]
+    assert_equal "20/2", voyelle[:nombre_presentation]
+    assert_equal 5, consonne[:nombre_reduit]
+    assert_equal "23/5", consonne[:nombre_presentation]
+    assert_equal 7, total[:nombre_reduit]
+    assert_equal "43/7", total[:nombre_presentation]
   end
 end
