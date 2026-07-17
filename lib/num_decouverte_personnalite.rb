@@ -109,7 +109,11 @@ module NumDecouvertePersonnalite
   end
 
   def self.extract_niveau(niveau_precedant)
-    niveau_precedant.scan(/\d+/).map(&:to_i)
+    if niveau_precedant.include?("/")
+      niveau_precedant.split("/").map(&:to_i)
+    else
+      niveau_precedant.scan(/\d+/).map(&:to_i)
+    end
   end
 
   def self.niveau_superieur(niveau_precedant)
@@ -121,8 +125,12 @@ module NumDecouvertePersonnalite
   end
 
   def self.hello()
-    niveau_1 = self.niveau_1("Stéphane", NumDecouvertePersonnalite::Nature::VOYELLE)
+    niveau_1 = self.niveau_1("StéphaneASBGDSIJGJKL", NumDecouvertePersonnalite::Nature::VOYELLE)
     niveau_2 = self.niveau_superieur(niveau_1)
+    unless niveau_2[:final]
+      niveau_3 = self.niveau_superieur(niveau_2[:sum].to_s)
+      puts niveau_3
+    end
     puts niveau_2
     puts niveau_1
   end
