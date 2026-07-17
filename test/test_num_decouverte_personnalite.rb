@@ -76,18 +76,18 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal 6, ::NumDecouvertePersonnalite.valeur_lettre("x")
     assert_equal 7, ::NumDecouvertePersonnalite.valeur_lettre("y")
     assert_equal 8, ::NumDecouvertePersonnalite.valeur_lettre("z")
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("é")
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("è")
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("ë")
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("ê")
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("ç")
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("é")
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("è")
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("ë")
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("ê")
+    assert_equal 3, ::NumDecouvertePersonnalite.valeur_lettre("ç")
     assert_equal 3, ::NumDecouvertePersonnalite.valeur_lettre("û")
     assert_equal 3, ::NumDecouvertePersonnalite.valeur_lettre("ü")
-    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("î")
+    assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("î")
     assert_equal 6, ::NumDecouvertePersonnalite.valeur_lettre("ô")
     assert_equal 6, ::NumDecouvertePersonnalite.valeur_lettre("ö")
-    assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("â")
-    assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("à")
+    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("â")
+    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("à")
     assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("a".upcase)
     assert_equal 2, ::NumDecouvertePersonnalite.valeur_lettre("b".upcase)
     assert_equal 3, ::NumDecouvertePersonnalite.valeur_lettre("c".upcase)
@@ -114,37 +114,37 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal 6, ::NumDecouvertePersonnalite.valeur_lettre("x".upcase)
     assert_equal 7, ::NumDecouvertePersonnalite.valeur_lettre("y".upcase)
     assert_equal 8, ::NumDecouvertePersonnalite.valeur_lettre("z".upcase)
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("é".upcase)
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("è".upcase)
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("ë".upcase)
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("ê".upcase)
-    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("ç".upcase)
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("é".upcase)
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("è".upcase)
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("ë".upcase)
+    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("ê".upcase)
+    assert_equal 3, ::NumDecouvertePersonnalite.valeur_lettre("ç".upcase)
     assert_equal 3, ::NumDecouvertePersonnalite.valeur_lettre("û".upcase)
     assert_equal 3, ::NumDecouvertePersonnalite.valeur_lettre("ü".upcase)
-    assert_equal 5, ::NumDecouvertePersonnalite.valeur_lettre("î".upcase)
+    assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("î".upcase)
     assert_equal 6, ::NumDecouvertePersonnalite.valeur_lettre("ô".upcase)
     assert_equal 6, ::NumDecouvertePersonnalite.valeur_lettre("ö".upcase)
-    assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("â".upcase)
-    assert_equal 9, ::NumDecouvertePersonnalite.valeur_lettre("à".upcase)
+    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("â".upcase)
+    assert_equal 1, ::NumDecouvertePersonnalite.valeur_lettre("à".upcase)
   end
 
   def test_vibration_de_noms
     nom = "Stéphane"
-    # Voyelle  7
+    # Voyelle  11/2
     # Consonne 23/5
     # Total    30/3
     voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::VOYELLE)
     consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::CONSONNE)
     total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
-    assert_equal 7, voyelle[:nombre_reduit]
-    assert_equal "7", voyelle[:nombre_presentation]
-    assert_equal "__1__1_5", voyelle[:ligne_caractere_vers_chiffre]
+    assert_equal 2, voyelle[:nombre_reduit]
+    assert_equal "11/2", voyelle[:nombre_presentation]
+    assert_equal "__5__1_5", voyelle[:ligne_caractere_vers_chiffre]
     assert_equal 5, consonne[:nombre_reduit]
     assert_equal "23/5", consonne[:nombre_presentation]
     assert_equal "12_78_5_", consonne[:ligne_caractere_vers_chiffre]
-    assert_equal 3, total[:nombre_reduit]
-    assert_equal "30/3", total[:nombre_presentation]
-    assert_equal "12178155", total[:ligne_caractere_vers_chiffre]
+    assert_equal 7, total[:nombre_reduit]
+    assert_equal "34/7", total[:nombre_presentation]
+    assert_equal "12578155", total[:ligne_caractere_vers_chiffre]
 
     nom = "Thomas"
     # Voyelle  7

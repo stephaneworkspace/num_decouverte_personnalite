@@ -1,4 +1,6 @@
 module NumDecouvertePersonnalite
+  TOUS_LES_VALEURS: Hash[String, Integer]
+
   module Nature
     VOYELLE: Symbol
     CONSONNE: Symbol

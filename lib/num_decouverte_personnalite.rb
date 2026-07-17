@@ -5,17 +5,39 @@ require_relative "num_decouverte_personnalite/version"
 module NumDecouvertePersonnalite
   class Error < StandardError; end
 
+  # Génération des caractères unicode, sauf ce qui n'est pas associable à l'alphabet
+  def self.generate_unicode_valeurs
+    hash = {}
+
+    (0..0x10FFFF).each do |code|
+      lettre = code.chr(Encoding::UTF_8) rescue next
+
+      normalise = lettre
+                    .unicode_normalize(:nfkd)
+                    .gsub(/\p{Mn}/, "")
+                    .upcase
+
+      next unless normalise.match?(/\A[A-Z]\z/)
+
+      hash[lettre] = VALEURS[normalise]
+    end
+
+    hash
+  end
+
   VALEURS = {
     "A" => 1, "B" => 2, "C" => 3, "D" => 4, "E" => 5, "F" => 6, "G" => 7, "H" => 8, "I" => 9,
     "J" => 1, "K" => 2, "L" => 3, "M" => 4, "N" => 5, "O" => 6, "P" => 7, "Q" => 8, "R" => 9,
     "S" => 1, "T" => 2, "U" => 3, "V" => 4, "W" => 5, "X" => 6, "Y" => 7, "Z" => 8,
     # Accents
-    "É" => 1, "È" => 1, "Ê" => 1, "Ë" => 1, "Ç" => 1,
-    "Û" => 3, "Ü" => 3,
-    "Î" => 5,
-    "Ô" => 6, "Ö" => 6,
-    "Â" => 9, "À" => 9
+    #   "É" => 1, "È" => 1, "Ê" => 1, "Ë" => 1, "Ç" => 1,
+    #"Û" => 3, "Ü" => 3,
+    #"Î" => 5,
+    #"Ô" => 6, "Ö" => 6,
+    #"Â" => 9, "À" => 9
   }.freeze
+
+  TOUS_LES_VALEURS = generate_unicode_valeurs.freeze
 
   NOMBRE = {
     1 => "1",
@@ -91,7 +113,7 @@ module NumDecouvertePersonnalite
   end
 
   def self.valeur_lettre(lettre)
-    VALEURS[lettre.upcase]
+    TOUS_LES_VALEURS[lettre.upcase]
   end
 
   def self.niveau_1(string, nature)
