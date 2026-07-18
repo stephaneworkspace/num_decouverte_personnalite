@@ -28,13 +28,13 @@ module NumDecouvertePersonnalite
   VALEURS = {
     "A" => 1, "B" => 2, "C" => 3, "D" => 4, "E" => 5, "F" => 6, "G" => 7, "H" => 8, "I" => 9,
     "J" => 1, "K" => 2, "L" => 3, "M" => 4, "N" => 5, "O" => 6, "P" => 7, "Q" => 8, "R" => 9,
-    "S" => 1, "T" => 2, "U" => 3, "V" => 4, "W" => 5, "X" => 6, "Y" => 7, "Z" => 8,
+    "S" => 1, "T" => 2, "U" => 3, "V" => 4, "W" => 5, "X" => 6, "Y" => 7, "Z" => 8
     # Accents
-    #   "É" => 1, "È" => 1, "Ê" => 1, "Ë" => 1, "Ç" => 1,
-    #"Û" => 3, "Ü" => 3,
-    #"Î" => 5,
-    #"Ô" => 6, "Ö" => 6,
-    #"Â" => 9, "À" => 9
+    # "É" => 1, "È" => 1, "Ê" => 1, "Ë" => 1, "Ç" => 1,
+    # "Û" => 3, "Ü" => 3,
+    # "Î" => 5,
+    # "Ô" => 6, "Ö" => 6,
+    # "Â" => 9, "À" => 9
   }.freeze
 
   TOUS_LES_VALEURS = generate_unicode_valeurs.freeze
@@ -48,21 +48,21 @@ module NumDecouvertePersonnalite
     6 => "6",
     7 => "7",
     8 => "8",
-    9 => "9",
-  }
+    9 => "9"
+  }.freeze
 
   MAITRE_NOMBRE = {
     11 => "11/2", # "\e[34m#{nombre}\e[0m" bleu
     22 => "22/4",
-    33 => "33/6",
-  }
+    33 => "33/6"
+  }.freeze
 
   NOMBRE_KARMIQUE = {
-    13 => "13/4",  # "\e[31m#{nombre}\e[0m" # rouge
+    13 => "13/4", # "\e[31m#{nombre}\e[0m" # rouge
     14 => "14/5",
     16 => "16/7",
     19 => "19/1"
-  }
+  }.freeze
 
   # Génère tous les nombres de 12 à max dont la réduction théosophique directe (somme des chiffres)
   # donne un résultat entre 1 et 9, en excluant les nombres maîtres et karmiques.
