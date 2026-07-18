@@ -187,5 +187,19 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "23/5", consonne[:nombre_presentation]
     assert_equal 7, total[:nombre_reduit]
     assert_equal "43/7", total[:nombre_presentation]
+
+    nom = "Elvis"
+    # Voyelle  14/5
+    # Consonne 8
+    # Total    22/4
+    voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::VOYELLE)
+    consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::CONSONNE)
+    total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
+    assert_equal 5, voyelle[:nombre_reduit]
+    assert_equal "14/5", voyelle[:nombre_presentation]
+    assert_equal 8, consonne[:nombre_reduit]
+    assert_equal "8", consonne[:nombre_presentation]
+    assert_equal 4, total[:nombre_reduit]
+    assert_equal "22/4", total[:nombre_presentation]
   end
 end
