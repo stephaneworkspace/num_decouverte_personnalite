@@ -15,9 +15,13 @@ module NumDecouvertePersonnalite
   VERSION: String
   VALEURS: Hash[String, Integer]
   # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  def self.etat_civil: -> Array[Hash[Symbol, String | Array[Array[String | Symbol]]]]
+
   def self.extract_niveau: -> Array[Integer]
 
   def self.generate_octave: -> Hash[Integer, String]
+
+  def self.generate_unicode_valeurs: -> Hash[String, Integer]
 
   def self.separate: (String) -> Array[String]
 
