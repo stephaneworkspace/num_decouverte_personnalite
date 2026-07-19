@@ -145,6 +145,18 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal 7, total[:nombre_reduit]
     assert_equal "34/7", total[:nombre_presentation]
     assert_equal "12578155", total[:ligne_caractere_vers_chiffre]
+    assert_equal "__5__1_5", voyelle[:resultat][0][0]
+    assert_equal :base, voyelle[:resultat][0][1]
+    assert_equal "11/2", voyelle[:resultat][1][0]
+    assert_equal :final, voyelle[:resultat][1][1]
+    assert_equal "12_78_5_", consonne[:resultat][0][0]
+    assert_equal :base, consonne[:resultat][0][1]
+    assert_equal "23/5", consonne[:resultat][1][0]
+    assert_equal :final, consonne[:resultat][1][1]
+    assert_equal "12578155", total[:resultat][0][0]
+    assert_equal :base, total[:resultat][0][1]
+    assert_equal "34/7", total[:resultat][1][0]
+    assert_equal :final, total[:resultat][1][1]
 
     nom = "Thomas"
     # Voyelle  7
@@ -159,6 +171,8 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "15/6", consonne[:nombre_presentation]
     assert_equal 4, total[:nombre_reduit]
     assert_equal "22/4", total[:nombre_presentation]
+    assert_equal "7", voyelle[:resultat][1][0]
+    assert_equal :final, voyelle[:resultat][1][1]
 
     nom = "Bressani"
     # Voyelle  15/6

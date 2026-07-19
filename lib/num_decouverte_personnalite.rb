@@ -194,38 +194,57 @@ module NumDecouvertePersonnalite
       niveau = resultat[:sum].digits.sum.to_s
     end
 
-    if nature == Nature::VOYELLE
-      puts "Voyelle #{string}"
-      niveaux.reverse.each_with_index do |n, index|
-        if n.is_a?(Hash) && n.key?(:last)
-          puts "Niveau #{index + 1}: #{n[:octave]}"
-        else
-          puts "Niveau #{index + 1}: #{n}"
-        end
-      end
-    elsif nature == Nature::CONSONNE || Nature::TOUT
-      if nature == Nature::CONSONNE
-        puts "Consonne #{string}"
-      else
-        puts "Tout #{string}"
-      end
-      niveaux.each_with_index do |n, index|
-        if n.is_a?(Hash) && n.key?(:last)
-          puts "Niveau #{index + 1}: #{n[:octave]}"
-        else
-          puts "Niveau #{index + 1}: #{n}"
-        end
-      end
-    else
-      puts "Unreachable"
-    end
-    puts ""
+    # if nature == Nature::VOYELLE
+    #   puts "Voyelle #{string}"
+    #   niveaux.reverse.each_with_index do |n, index|
+    #     if n.is_a?(Hash) && n.key?(:last)
+    #       puts "Niveau #{index + 1}: #{n[:octave]}"
+    #     else
+    #       puts "Niveau #{index + 1}: #{n}"
+    #     end
+    #   end
+    # elsif nature == Nature::CONSONNE || Nature::TOUT
+    #   if nature == Nature::CONSONNE
+    #     puts "Consonne #{string}"
+    #   else
+    #     puts "Tout #{string}"
+    #   end
+    #   niveaux.each_with_index do |n, index|
+    #     if n.is_a?(Hash) && n.key?(:last)
+    #       puts "Niveau #{index + 1}: #{n[:octave]}"
+    #     else
+    #       puts "Niveau #{index + 1}: #{n}"
+    #     end
+    #   end
+    # else
+    #   puts "Unreachable"
+    # end
+    # puts ""
 
+    resultat = []
+    niveaux.each_with_index do | n, index|
+      if index == 0
+        line = []
+        line.push(n)
+        line.push(:base)
+      else
+        line = []
+        line.push(n[:octave])
+        if n.is_a?(Hash) && n.key?(:last)
+          line.push(:final)
+        else
+          line.push(:intermediate)
+        end
+      end
+      resultat.push(line)
+    end
 
     {
       nombre_presentation: hash[:presentation],
       nombre_reduit: hash[:nombre_reduit],
-      ligne_caractere_vers_chiffre: niveaux.first
+      ligne_caractere_vers_chiffre: niveaux.first,
+      valeur: string,
+      resultat: resultat
       # sw_octave: sw_octave
     }
   end
