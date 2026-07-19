@@ -167,7 +167,7 @@ module NumDecouvertePersonnalite
 
   def self.stat(prenom_actif, prenom_secondaire, nom_de_famille, type)
     etat_civil = self.etat_civil(prenom_actif, prenom_secondaire, nom_de_famille)
-
+    count = 0
     etat_civil.each do |x|
       resultat =
         case type
@@ -175,12 +175,15 @@ module NumDecouvertePersonnalite
           x.voyelle
         when Nature::CONSONNE
           x.consonne
-        when Nature::TOUT
+          # when Nature::TOUT
+        else
           x.tout
         end
-
-      puts "#{x.valeur}: #{self.extrait_nombre(resultat.last[0])}"
+      i = self.extrait_nombre(resultat.last[0])
+      puts "#{x.valeur}: #{i}"
+      count += i
     end
+    puts count
   end
 
   class << self
