@@ -12,7 +12,6 @@ module NumDecouvertePersonnalite
     :tout,
     keyword_init: true
   )
-
   ChaineCaractere = Struct.new(
     :nombre_presentation,
     :nombre_reduit,

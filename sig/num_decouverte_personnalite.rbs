@@ -1,4 +1,18 @@
 module NumDecouvertePersonnalite
+  class EtatCivil
+    attr_reader valeur: String
+    attr_reader voyelle: Array[Array[String | Symbol]]
+    attr_reader consonne: Array[Array[String | Symbol]]
+    attr_reader tout: Array[Array[String | Symbol]]
+  end
+
+  class ChaineCaractere
+    attr_reader nombre_presentation: String?
+    attr_reader nombre_reduit: Integer?
+    attr_reader ligne_caractere_vers_chiffre: String
+    attr_reader valeur: String
+    attr_reader resultat: Array[Array[String | Symbol]]
+  end
   TOUS_LES_VALEURS: Hash[String, Integer]
 
   module Nature
@@ -15,19 +29,25 @@ module NumDecouvertePersonnalite
   VERSION: String
   VALEURS: Hash[String, Integer]
 
-  def self.etat_civil: -> Array[Hash[Symbol, String | Array[Array[String | Symbol]]]]
+  def self.chaine_de_caractere_individuelle: (String, Symbol) -> ChaineCaractere
 
-  def self.extract_niveau: -> Array[Integer]
+  def self.etat_civil: (String, String, String) -> Array[EtatCivil]
+
+  def self.extract_niveau: (String) -> Array[Integer]
 
   def self.generate_octave: -> Hash[Integer, String]
 
   def self.generate_unicode_valeurs: -> Hash[String, Integer]
 
+  def self.niveau_1: (String, Symbol) -> String
+
+  def self.niveau_superieur: (String) -> Hash[Symbol, Integer | String | bool | nil]
+
   def self.separate: (String) -> Array[String]
 
-  def self.theosophique: -> Integer
+  def self.theosophique: (Integer) -> Integer
 
-  def self.transform: -> Array[String]
+  def self.transform: (String, String, String) -> Array[String]
 
   def self.valeur_lettre: (String) -> Integer?
 end
