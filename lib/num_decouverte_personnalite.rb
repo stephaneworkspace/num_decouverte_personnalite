@@ -136,7 +136,7 @@ module NumDecouvertePersonnalite
         )
       )
     }
-    puts etat_civil
+    # puts etat_civil
     etat_civil
   end
 
