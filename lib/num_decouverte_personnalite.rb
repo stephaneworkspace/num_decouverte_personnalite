@@ -206,7 +206,7 @@ module NumDecouvertePersonnalite
         count = nv_s[:sum]
       end
     end
-    puts res
+    # puts res
     res
   end
 

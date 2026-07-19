@@ -245,6 +245,8 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "17/8", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::VOYELLE)
     assert_equal "25/7", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::CONSONNE)
     assert_equal "24/6", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::TOUT)
+    # 29 -> 11/2
+    assert_equal "11/2", ::NumDecouvertePersonnalite.stat("Stéphane", "Tho", "Bressani-Pef", NumDecouvertePersonnalite::Nature::TOUT)
   end
 
   def test_transform
