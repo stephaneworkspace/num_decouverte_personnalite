@@ -39,6 +39,8 @@ module NumDecouvertePersonnalite
 
   def self.generate_unicode_valeurs: -> Hash[String, Integer]
 
+  def self.grille_inclusion: -> Array[Array[Integer]]
+
   def self.niveau_1: (String, Symbol) -> String
 
   def self.niveau_superieur: (String) -> Hash[Symbol, Integer | String | bool | nil]

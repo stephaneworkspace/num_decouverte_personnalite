@@ -140,6 +140,32 @@ module NumDecouvertePersonnalite
     etat_civil
   end
 
+  def self.grille_inclusion(prenom_actif, prenom_secondaire, nom_de_famille)
+    result = [
+      *self.separate(prenom_actif),
+      *self.separate(prenom_secondaire),
+      *self.separate(nom_de_famille)
+    ]
+
+    # Exemple : ["Mario", "Bressani"] => "MarioBressani"
+    chaine = result.join
+
+    # Compteur des nombres 1 à 9
+    compteur = Hash.new(0)
+
+    chaine.each_char do |lettre|
+      valeur = TOUS_LES_VALEURS[lettre.upcase]
+      compteur[valeur] += 1 if valeur
+    end
+
+    # Grille 3x3
+    [
+      [compteur[1], compteur[2], compteur[3]],
+      [compteur[4], compteur[5], compteur[6]],
+      [compteur[7], compteur[8], compteur[9]]
+    ]
+  end
+
   # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
   def self.separate(string)
     string.split(/[\s-]+/)
@@ -239,7 +265,7 @@ module NumDecouvertePersonnalite
       if index == 0
         line = []
         line.push(n)
-        puts "#{index} - #{n}"
+        # puts "#{index} - #{n}"
         line.push(:base)
       else
         # puts "#{index} - #{n}"
