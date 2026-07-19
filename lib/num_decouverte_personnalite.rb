@@ -181,9 +181,30 @@ module NumDecouvertePersonnalite
           x.tout
         end
       i = self.extrait_nombre(resultat.last[0])
-      puts "#{x.valeur}: #{i}"
+      # puts "#{x.valeur}: #{i}"
       count += i
-      puts count
+      # puts count
+      nombre_avec_dash = self::TOUS_LES_NOMBRES[count]
+      if nombre_avec_dash == nil
+        nombre_avec_dash = count.to_s
+      end
+      res = 0
+      loop do
+        if count < 9
+          res = count.to_s
+          break
+        end
+        if nombre_avec_dash.include?("/")
+          res = nombre_avec_dash
+          break
+        end
+        nv_s = self.niveau_superieur(count.to_s)
+        if nv_s[:final]
+          res = nv_s[:octave]
+          break
+        end
+      end
+      puts res
     end
   end
 
