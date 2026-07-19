@@ -5,6 +5,23 @@ require_relative "num_decouverte_personnalite/version"
 module NumDecouvertePersonnalite
   class Error < StandardError; end
 
+  EtatCivil = Struct.new(
+    :valeur,
+    :voyelle,
+    :consonne,
+    :tout,
+    keyword_init: true
+  )
+
+  ChaineCaractere = Struct.new(
+    :nombre_presentation,
+    :nombre_reduit,
+    :ligne_caractere_vers_chiffre,
+    :valeur,
+    :resultat,
+    keyword_init: true
+  )
+
   # Génération des caractères unicode, sauf ce qui n'est pas associable à l'alphabet
   def self.generate_unicode_valeurs
     hash = {}
@@ -111,12 +128,14 @@ module NumDecouvertePersonnalite
     ]
     etat_civil = []
     result.each { |x|
-      etat_civil.push({
-                        valeur: x,
-                        voyelle: self.chaine_de_caractere_individuelle(x, :voyelle)[:resultat],
-                        consonne: self.chaine_de_caractere_individuelle(x, :consonne)[:resultat],
-                        tout: self.chaine_de_caractere_individuelle(x, :tout)[:resultat],
-      })
+      etat_civil.push(
+        EtatCivil.new(
+          valeur: x,
+          voyelle: self.chaine_de_caractere_individuelle(x, :voyelle).resultat,
+          consonne: self.chaine_de_caractere_individuelle(x, :consonne).resultat,
+          tout: self.chaine_de_caractere_individuelle(x, :tout).resultat
+        )
+      )
     }
     puts etat_civil
     etat_civil
@@ -225,12 +244,12 @@ module NumDecouvertePersonnalite
       resultat.push(line)
     end
 
-    {
+    ChaineCaractere.new(
       nombre_presentation: hash[:presentation],
       nombre_reduit: hash[:nombre_reduit],
       ligne_caractere_vers_chiffre: niveaux.first,
       valeur: string,
       resultat: resultat
-    }
+    )
   end
 end
