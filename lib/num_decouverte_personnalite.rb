@@ -122,6 +122,8 @@ module NumDecouvertePersonnalite
     etat_civil
   end
 
+  private
+
   # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
   def self.separate(string)
     string.split(/[\s-]+/)
