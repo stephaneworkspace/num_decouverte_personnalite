@@ -14,7 +14,9 @@ module NumDecouvertePersonnalite
   TOUS_LES_NOMBRES: Hash[Integer, String]
   VERSION: String
   VALEURS: Hash[String, Integer]
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  def self.chaine_de_caractere_individuelle: (String, Symbol) -> untyped
+
   def self.etat_civil: -> Array[Hash[Symbol, String | Array[Array[String | Symbol]]]]
 
   def self.extract_niveau: -> Array[Integer]
@@ -22,6 +24,10 @@ module NumDecouvertePersonnalite
   def self.generate_octave: -> Hash[Integer, String]
 
   def self.generate_unicode_valeurs: -> Hash[String, Integer]
+
+  def self.niveau_1: -> untyped
+
+  def self.niveau_superieur: -> untyped
 
   def self.separate: (String) -> Array[String]
 
