@@ -77,7 +77,7 @@ module NumDecouvertePersonnalite
     13 => "13/4", # "\e[31m#{nombre}\e[0m" # rouge
     14 => "14/5",
     16 => "16/7",
-    19 => "19/1"
+    19 => "19/1",
   }.freeze
 
   # Génère tous les nombres de 12 à max dont la réduction théosophique directe (somme des chiffres)
@@ -188,20 +188,29 @@ module NumDecouvertePersonnalite
   def self.niveau_superieur(niveau_precedant)
     all = self::TOUS_LES_NOMBRES
     sum = self.extract_niveau(niveau_precedant).sum
-    final = sum >= 1 && sum <= 9
-    unless final
-      if all[sum] == nil
-        # continue
-      else
-        final = all[sum].include?("/")
-      end
+
+    if MAITRE_NOMBRE.key?(sum) || NOMBRE_KARMIQUE.key?(sum) || OCTAVE.key?(sum)
+      {
+        sum: sum,
+        last: self.theosophique(sum),
+        octave: all[sum],
+        final: true
+      }
+    elsif sum >= 1 && sum <= 9
+      {
+        sum: sum,
+        last: sum,
+        octave: all[sum],
+        final: true
+      }
+    else
+      {
+        sum: sum,
+        last: nil,
+        octave: nil,
+        final: false
+      }
     end
-    {
-      sum: sum,
-      last: final ? self.theosophique(sum) : nil,
-      octave: all[sum],
-      final: final
-    }
   end
 
   def self.chaine_de_caractere_individuelle(string, nature)
@@ -222,7 +231,7 @@ module NumDecouvertePersonnalite
       hash[:presentation] = resultat[:octave]
       hash[:nombre_reduit] = resultat[:last]
       break if resultat[:final]
-      niveau = resultat[:sum].digits.sum.to_s
+      niveau = resultat[:sum].to_s
     end
 
     resultat = []
@@ -230,8 +239,10 @@ module NumDecouvertePersonnalite
       if index == 0
         line = []
         line.push(n)
+        puts "#{index} - #{n}"
         line.push(:base)
       else
+        puts "#{index} - #{n}"
         line = []
         line.push(n[:octave])
         if n.is_a?(Hash) && n.key?(:last)

@@ -215,6 +215,20 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "8", consonne[:nombre_presentation]
     assert_equal 4, total[:nombre_reduit]
     assert_equal "22/4", total[:nombre_presentation]
+
+    nom = "Mario"
+    # Voyelle  16/7
+    # Consonne 13/4
+    # Total    30/3
+    voyelle = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::VOYELLE)
+    consonne = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::CONSONNE)
+    total = ::NumDecouvertePersonnalite.chaine_de_caractere_individuelle(nom, NumDecouvertePersonnalite::Nature::TOUT)
+    assert_equal 7, voyelle[:nombre_reduit]
+    assert_equal "16/7", voyelle[:nombre_presentation]
+    assert_equal 4, consonne[:nombre_reduit]
+    assert_equal "13/4", consonne[:nombre_presentation]
+    assert_equal 2, total[:nombre_reduit]
+    assert_equal "11/2", total[:nombre_presentation]
   end
 
   def test_transform
@@ -222,8 +236,8 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   #              ::NumDecouvertePersonnalite.etat_civil("Stéphane",
   #                                                     "Thomas",
   #                                                     "Bressani-Pedroli")
-                ::NumDecouvertePersonnalite.etat_civil("Stéphane",
-                                                       "Thomas",
-                                                       "Bressani-Pedroli")
+  #             ::NumDecouvertePersonnalite.etat_civil("Stéphane",
+  #                                                    "Thomas",
+  #                                                    "Bressani-Pedroli")
   end
 end
