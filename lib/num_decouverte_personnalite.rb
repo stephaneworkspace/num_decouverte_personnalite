@@ -103,12 +103,23 @@ module NumDecouvertePersonnalite
   #---
   # publier: gem build num_decouverte_personalite.gemspec
   # puis:    gem push num_decouverte_personalite-0.1.0.gem
-  def self.transform(prenom_actif, prenom_secondaire, nom_de_famille)
+  def self.etat_civil(prenom_actif, prenom_secondaire, nom_de_famille)
     result = [
       *self.separate(prenom_actif),
       *self.separate(prenom_secondaire),
       *self.separate(nom_de_famille)
     ]
+    etat_civil = []
+    result.each { |x|
+      etat_civil.push({
+                        valeur: x,
+                        voyelle: self.chaine_de_caractere_individuelle(x, :voyelle)[:resultat],
+                        consonne: self.chaine_de_caractere_individuelle(x, :consonne)[:resultat],
+                        tout: self.chaine_de_caractere_individuelle(x, :tout)[:resultat],
+      })
+    }
+    puts etat_civil
+    etat_civil
   end
 
   # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
