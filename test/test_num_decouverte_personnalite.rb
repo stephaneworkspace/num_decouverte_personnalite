@@ -216,4 +216,11 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal 4, total[:nombre_reduit]
     assert_equal "22/4", total[:nombre_presentation]
   end
+
+  def test_transform
+    assert_equal %w[Stéphane Thomas Bressani Pedroli],
+                 ::NumDecouvertePersonnalite.transform("Stéphane",
+                                                       "Thomas",
+                                                       "Bressani-Pedroli")
+  end
 end

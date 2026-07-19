@@ -104,7 +104,11 @@ module NumDecouvertePersonnalite
   # publier: gem build num_decouverte_personalite.gemspec
   # puis:    gem push num_decouverte_personalite-0.1.0.gem
   def self.transform(prenom_actif, prenom_secondaire, nom_de_famille)
-    "#{prenom_actif} #{prenom_secondaire} #{nom_de_famille}"
+    result = [
+      *self.separate(prenom_actif),
+      *self.separate(prenom_secondaire),
+      *self.separate(nom_de_famille)
+    ]
   end
 
   # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
@@ -177,7 +181,6 @@ module NumDecouvertePersonnalite
       nombre_reduit: 0,
       ligne_caractere_vers_chiffre: ""
     }
-    sw_octave = nil
     niveau = self.niveau_1(
       string,
       nature
@@ -245,7 +248,6 @@ module NumDecouvertePersonnalite
       ligne_caractere_vers_chiffre: niveaux.first,
       valeur: string,
       resultat: resultat
-      # sw_octave: sw_octave
     }
   end
 end
