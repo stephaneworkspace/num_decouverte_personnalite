@@ -166,126 +166,130 @@ module NumDecouvertePersonnalite
     ]
   end
 
-  # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
-  def self.separate(string)
-    string.split(/[\s-]+/)
-  end
+  class << self
+    private
 
-  def self.valeur_lettre(lettre)
-    TOUS_LES_VALEURS[lettre.upcase]
-  end
-
-  def self.niveau_1(string, nature)
-    raise ArgumentError unless Nature::ALL.include?(nature)
-    string.chars.map do |lettre|
-      est_voyelle = %w[A E I O U Y É È Ê Ë Â À].include?(lettre.upcase)
-      if nature == Nature::VOYELLE && est_voyelle
-        valeur_lettre(lettre) || "_"
-      elsif nature == Nature::CONSONNE && !est_voyelle
-        valeur_lettre(lettre) || "_"
-      elsif nature == Nature::TOUT
-        valeur_lettre(lettre) || "_"
-      else
-        "_"
-      end
-    end.join
-  end
-
-  def self.extract_niveau(niveau_precedant)
-    if niveau_precedant.match?(/[A-Za-zÀ-ÿ]/)
-      niveau_precedant.scan(/\d+/).map(&:to_i)
-    else
-      if niveau_precedant.include?("/")
-        niveau_precedant.split("/").map(&:to_i)
-      else
-        niveau_precedant.scan(/\d/).map(&:to_i)
-      end
-    end
-  end
-
-  def self.theosophique(nombre)
-    while nombre > 9
-      nombre = nombre.digits.sum
+    # Divise une entrée en plusieurs parties en utilisant des espaces et des tirets comme séparateurs.
+    def separate(string)
+      string.split(/[\s-]+/)
     end
 
-    nombre
-  end
-
-  def self.niveau_superieur(niveau_precedant)
-    all = self::TOUS_LES_NOMBRES
-    sum = self.extract_niveau(niveau_precedant).sum
-
-    if MAITRE_NOMBRE.key?(sum) || NOMBRE_KARMIQUE.key?(sum) || OCTAVE.key?(sum)
-      {
-        sum: sum,
-        last: self.theosophique(sum),
-        octave: all[sum],
-        final: true
-      }
-    elsif sum >= 1 && sum <= 9
-      {
-        sum: sum,
-        last: sum,
-        octave: all[sum],
-        final: true
-      }
-    else
-      {
-        sum: sum,
-        last: nil,
-        octave: sum.to_s,
-        final: false
-      }
-    end
-  end
-
-  def self.chaine_de_caractere_individuelle(string, nature)
-    hash = {
-      presentation: nil,
-      nombre_reduit: 0,
-      ligne_caractere_vers_chiffre: ""
-    }
-    niveau = self.niveau_1(
-      string,
-      nature
-    )
-
-    niveaux = [niveau]
-    loop do
-      resultat = self.niveau_superieur(niveau)
-      niveaux << resultat
-      hash[:presentation] = resultat[:octave]
-      hash[:nombre_reduit] = resultat[:last]
-      break if resultat[:final]
-      niveau = resultat[:sum].to_s
+    def valeur_lettre(lettre)
+      TOUS_LES_VALEURS[lettre.upcase]
     end
 
-    resultat = []
-    niveaux.each_with_index do | n, index|
-      if index == 0
-        line = []
-        line.push(n)
-        # puts "#{index} - #{n}"
-        line.push(:base)
-      else
-        # puts "#{index} - #{n}"
-        line = []
-        line.push(n[:octave])
-        if n.is_a?(Hash) && n.key?(:last) && n[:last] != nil
-          line.push(:final)
+    def niveau_1(string, nature)
+      raise ArgumentError unless Nature::ALL.include?(nature)
+      string.chars.map do |lettre|
+        est_voyelle = %w[A E I O U Y É È Ê Ë Â À].include?(lettre.upcase)
+        if nature == Nature::VOYELLE && est_voyelle
+          valeur_lettre(lettre) || "_"
+        elsif nature == Nature::CONSONNE && !est_voyelle
+          valeur_lettre(lettre) || "_"
+        elsif nature == Nature::TOUT
+          valeur_lettre(lettre) || "_"
         else
-          line.push(:intermediaire)
+          "_"
+        end
+      end.join
+    end
+
+    def extract_niveau(niveau_precedant)
+      if niveau_precedant.match?(/[A-Za-zÀ-ÿ]/)
+        niveau_precedant.scan(/\d+/).map(&:to_i)
+      else
+        if niveau_precedant.include?("/")
+          niveau_precedant.split("/").map(&:to_i)
+        else
+          niveau_precedant.scan(/\d/).map(&:to_i)
         end
       end
-      resultat.push(line)
     end
 
-    ChaineCaractere.new(
-      nombre_presentation: hash[:presentation],
-      nombre_reduit: hash[:nombre_reduit],
-      ligne_caractere_vers_chiffre: niveaux.first,
-      valeur: string,
-      resultat: resultat
-    )
+    def theosophique(nombre)
+      while nombre > 9
+        nombre = nombre.digits.sum
+      end
+
+      nombre
+    end
+
+    def niveau_superieur(niveau_precedant)
+      all = self::TOUS_LES_NOMBRES
+      sum = self.extract_niveau(niveau_precedant).sum
+
+      if MAITRE_NOMBRE.key?(sum) || NOMBRE_KARMIQUE.key?(sum) || OCTAVE.key?(sum)
+        {
+          sum: sum,
+          last: self.theosophique(sum),
+          octave: all[sum],
+          final: true
+        }
+      elsif sum >= 1 && sum <= 9
+        {
+          sum: sum,
+          last: sum,
+          octave: all[sum],
+          final: true
+        }
+      else
+        {
+          sum: sum,
+          last: nil,
+          octave: sum.to_s,
+          final: false
+        }
+      end
+    end
+
+    def chaine_de_caractere_individuelle(string, nature)
+      hash = {
+        presentation: nil,
+        nombre_reduit: 0,
+        ligne_caractere_vers_chiffre: ""
+      }
+      niveau = self.niveau_1(
+        string,
+        nature
+      )
+
+      niveaux = [niveau]
+      loop do
+        resultat = self.niveau_superieur(niveau)
+        niveaux << resultat
+        hash[:presentation] = resultat[:octave]
+        hash[:nombre_reduit] = resultat[:last]
+        break if resultat[:final]
+        niveau = resultat[:sum].to_s
+      end
+
+      resultat = []
+      niveaux.each_with_index do | n, index|
+        if index == 0
+          line = []
+          line.push(n)
+          # puts "#{index} - #{n}"
+          line.push(:base)
+        else
+          # puts "#{index} - #{n}"
+          line = []
+          line.push(n[:octave])
+          if n.is_a?(Hash) && n.key?(:last) && n[:last] != nil
+            line.push(:final)
+          else
+            line.push(:intermediaire)
+          end
+        end
+        resultat.push(line)
+      end
+
+      ChaineCaractere.new(
+        nombre_presentation: hash[:presentation],
+        nombre_reduit: hash[:nombre_reduit],
+        ligne_caractere_vers_chiffre: niveaux.first,
+        valeur: string,
+        resultat: resultat
+      )
+    end
   end
 end
