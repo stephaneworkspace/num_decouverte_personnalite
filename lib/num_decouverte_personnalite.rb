@@ -245,10 +245,10 @@ module NumDecouvertePersonnalite
         puts "#{index} - #{n}"
         line = []
         line.push(n[:octave])
-        if n.is_a?(Hash) && n.key?(:last)
+        if n.is_a?(Hash) && n.key?(:last) && n[:last] != nil
           line.push(:final)
         else
-          line.push(:intermediate)
+          line.push(:intermediaire)
         end
       end
       resultat.push(line)
