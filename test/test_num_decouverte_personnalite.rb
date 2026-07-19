@@ -242,6 +242,9 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   end
 
   def test_transform
+    ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::VOYELLE)
+    ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::CONSONNE)
+    ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::TOUT)
   # assert_equal %w[Stéphane Thomas Bressani Pedroli],
   #              ::NumDecouvertePersonnalite.etat_civil("Stéphane",
   #                                                     "Thomas",

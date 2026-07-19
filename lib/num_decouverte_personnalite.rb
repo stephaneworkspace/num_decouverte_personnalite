@@ -165,6 +165,24 @@ module NumDecouvertePersonnalite
     ]
   end
 
+  def self.stat(prenom_actif, prenom_secondaire, nom_de_famille, type)
+    etat_civil = self.etat_civil(prenom_actif, prenom_secondaire, nom_de_famille)
+
+    etat_civil.each do |x|
+      resultat =
+        case type
+        when Nature::VOYELLE
+          x.voyelle
+        when Nature::CONSONNE
+          x.consonne
+        when Nature::TOUT
+          x.tout
+        end
+
+      puts "#{x.valeur}: #{self.extrait_nombre(resultat.last[0])}"
+    end
+  end
+
   class << self
     private
 
@@ -289,6 +307,17 @@ module NumDecouvertePersonnalite
         valeur: string,
         resultat: resultat
       )
+    end
+
+    # Pour la méthode stat
+    def extrait_nombre(nombre)
+      valeur = nombre.to_s
+
+      if valeur.include?("/")
+        valeur.split("/").last.to_i
+      else
+        valeur.to_i
+      end
     end
   end
 end
