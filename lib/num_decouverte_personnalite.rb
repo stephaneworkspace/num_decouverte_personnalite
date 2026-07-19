@@ -207,7 +207,7 @@ module NumDecouvertePersonnalite
       {
         sum: sum,
         last: nil,
-        octave: nil,
+        octave: sum.to_s,
         final: false
       }
     end
