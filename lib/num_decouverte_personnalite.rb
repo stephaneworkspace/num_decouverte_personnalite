@@ -147,7 +147,6 @@ module NumDecouvertePersonnalite
       *self.separate(nom_de_famille)
     ]
 
-    # Exemple : ["Mario", "Bressani"] => "MarioBressani"
     chaine = result.join
 
     # Compteur des nombres 1 à 9
