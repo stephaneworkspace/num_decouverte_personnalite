@@ -241,6 +241,12 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     assert_equal "11/2", total[:nombre_presentation]
   end
 
+  def test_triangle_cercle_carre
+    assert_equal "17/8", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::VOYELLE)
+    assert_equal "25/7", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::CONSONNE)
+    assert_equal "24/6", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::TOUT)
+  end
+
   def test_transform
     ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::VOYELLE)
     ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::CONSONNE)

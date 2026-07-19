@@ -207,6 +207,7 @@ module NumDecouvertePersonnalite
       end
     end
     puts res
+    res
   end
 
   class << self
