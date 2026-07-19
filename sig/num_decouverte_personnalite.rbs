@@ -23,5 +23,7 @@ module NumDecouvertePersonnalite
 
   def self.theosophique: -> Integer
 
+  def self.transform: -> Array[String]
+
   def self.valeur_lettre: (String) -> Integer?
 end
