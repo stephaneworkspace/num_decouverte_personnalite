@@ -165,6 +165,7 @@ module NumDecouvertePersonnalite
     ]
   end
 
+  # TODO Tester avec 29 et 19
   def self.stat(prenom_actif, prenom_secondaire, nom_de_famille, type)
     etat_civil = self.etat_civil(prenom_actif, prenom_secondaire, nom_de_famille)
     count = 0
@@ -182,8 +183,8 @@ module NumDecouvertePersonnalite
       i = self.extrait_nombre(resultat.last[0])
       puts "#{x.valeur}: #{i}"
       count += i
+      puts count
     end
-    puts count
   end
 
   class << self
