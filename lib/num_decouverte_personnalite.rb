@@ -153,7 +153,6 @@ module NumDecouvertePersonnalite
     n = prenom_actif
     if n.match?(/\A[^ -]+\z/)
       # un seul nom
-    else
       voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
       consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
       total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
@@ -178,7 +177,6 @@ module NumDecouvertePersonnalite
     n = prenom_secondaire
     if n.match?(/\A[^ -]+\z/)
       # un seul nom
-    else
       voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
       consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
       total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
@@ -202,7 +200,6 @@ module NumDecouvertePersonnalite
     n = nom_de_famille
     if n.match?(/\A[^ -]+\z/)
       # un seul nom
-    else
       voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
       consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
       total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
