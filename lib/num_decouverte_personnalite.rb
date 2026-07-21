@@ -142,20 +142,38 @@ module NumDecouvertePersonnalite
 
   # Pour le cas de nom composé comme Jean-Benoit ou de nom de Famille composé comme Bressani-Pedroli
   def self.etat_civil2(prenom_actif, prenom_secondaire, nom_de_famille)
-    etat_civil1 = etat_civil(prenom_actif, prenom_secondaire, nom_de_famille)
-    self.find_reduction(etat_civil1, :voyelle)
-
-    stat1_v = stat(prenom_actif, prenom_secondaire, nom_de_famille, :voyelle)
-    stat1_t = stat(prenom_actif, prenom_secondaire, nom_de_famille, :tout)
-    stat1_c = stat(prenom_actif, prenom_secondaire, nom_de_famille, :consonne)
     etat_civil2 = []
+    # prenom
+    stat_v = stat(prenom_actif, "", "", :voyelle)
+    stat_t = stat(prenom_actif, "", "", :tout)
+    stat_c = stat(prenom_actif, "", "", :consonne)
     etat_civil2.push(EtatCivil.new(
                        valeur: prenom_actif,
-                       voyelle: [],
-                       consonne: [],
-                       tout: []
+                       voyelle: [[stat_v], [:final]],
+                       consonne: [[stat_c], [:final]],
+                       tout: [[stat_t], [:final]]
+                     ))
+    # prenom_sec
+    stat_v = stat("", prenom_secondaire, "", :voyelle)
+    stat_t = stat("", prenom_secondaire, "", :tout)
+    stat_c = stat("", prenom_secondaire, "", :consonne)
+    etat_civil2.push(EtatCivil.new(
+                       valeur: prenom_secondaire,
+                       voyelle: [[stat_v], [:final]],
+                       consonne: [[stat_c], [:final]],
+                       tout: [[stat_t], [:final]]
     ))
-
+    # nom_de_famille
+    stat_v = stat("", "", nom_de_famille, :voyelle)
+    stat_t = stat("", "", nom_de_famille, :tout)
+    stat_c = stat("", "", nom_de_famille, :consonne)
+    etat_civil2.push(EtatCivil.new(
+                       valeur: nom_de_famille,
+                       voyelle: [[stat_v], [:final]],
+                       consonne: [[stat_c], [:final]],
+                       tout: [[stat_t], [:final]]
+                     ))
+    puts etat_civil2
     etat_civil2
   end
 
@@ -367,30 +385,30 @@ module NumDecouvertePersonnalite
       end
     end
 
-    def find_reduction(etat_civil, type)
-      count = 0
-      record = []
-      etat_civil.each do |x|
-        resultat =
-          case type
-          when Nature::VOYELLE
-            x.voyelle
-          when Nature::CONSONNE
-            x.consonne
-            # when Nature::TOUT
-          else
-            x.tout
-          end
-        i = extrait_nombre(resultat.last[0])
-        record.push({
-          valeur: x.valeur,
-          complet: resultat.last[0],
-          reduit: i
-        })
-        count += i
-      end
-      puts record
-      record
-    end
+   #  def find_reduction(etat_civil, type)
+   #  count = 0
+   #  record = []
+   #  etat_civil.each do |x|
+   #    resultat =
+   #      case type
+   #      when Nature::VOYELLE
+   #        x.voyelle
+   #      when Nature::CONSONNE
+   #        x.consonne
+   #        # when Nature::TOUT
+   #      else
+   #        x.tout
+   #      end
+   #    i = extrait_nombre(resultat.last[0])
+   #    record.push({
+   #                  valeur: x.valeur,
+   #                  complet: resultat.last[0],
+   #                  reduit: i
+   #                })
+   #    count += i
+   #  end
+   #  puts record
+   #  record
+   #end
   end
 end
