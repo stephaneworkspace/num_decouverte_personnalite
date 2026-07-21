@@ -49,6 +49,8 @@ module NumDecouvertePersonnalite
 
   def self.stat: -> Integer
 
+  def self.stat2: -> Integer
+
   def self.theosophique: (Integer) -> Integer
 
   def self.transform: (String, String, String) -> Array[String]

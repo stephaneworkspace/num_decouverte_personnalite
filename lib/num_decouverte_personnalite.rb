@@ -136,7 +136,7 @@ module NumDecouvertePersonnalite
         )
       )
     }
-    # puts etat_civil
+    #puts etat_civil
     etat_civil
   end
 
@@ -219,6 +219,52 @@ module NumDecouvertePersonnalite
         end
       i = extrait_nombre(resultat.last[0])
       # puts "#{x.valeur}: #{i}"
+      count += i
+    end
+    # puts count
+    nombre_avec_dash = self::TOUS_LES_NOMBRES[count]
+    if nombre_avec_dash == nil
+      nombre_avec_dash = count.to_s
+    end
+    res = 0
+    loop do
+      if count < 9
+        res = count.to_s
+        break
+      end
+      if nombre_avec_dash.include?("/")
+        res = nombre_avec_dash
+        break
+      end
+      nv_s = niveau_superieur(count.to_s)
+      if nv_s[:final]
+        res = nv_s[:octave]
+        break
+      else
+        count = nv_s[:sum]
+      end
+    end
+    # puts res
+    res
+  end
+
+  # Dans le cas de nom composé la valeur peut être légèrement différente
+  def self.stat2(prenom_actif, prenom_secondaire, nom_de_famille, type)
+    etat_civil = self.etat_civil2(prenom_actif, prenom_secondaire, nom_de_famille)
+    count = 0
+    etat_civil.each do |x|
+      resultat =
+        case type
+        when Nature::VOYELLE
+          x.voyelle
+        when Nature::CONSONNE
+          x.consonne
+          # when Nature::TOUT
+        else
+          x.tout
+        end
+      i = extrait_nombre(resultat.first[0])
+      #puts "#{x.valeur}: #{i}"
       count += i
     end
     # puts count

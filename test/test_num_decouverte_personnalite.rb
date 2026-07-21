@@ -242,9 +242,14 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   end
 
   def test_triangle_cercle_carre
+    # stat
     assert_equal "17/8", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::VOYELLE)
     assert_equal "25/7", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::CONSONNE)
     assert_equal "24/6", ::NumDecouvertePersonnalite.stat("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::TOUT)
+    # stat2 pour recomposer les noms composés
+    assert_equal "17/8", ::NumDecouvertePersonnalite.stat2("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::VOYELLE)
+    assert_equal "16/7", ::NumDecouvertePersonnalite.stat2("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::CONSONNE)
+    assert_equal "15/6", ::NumDecouvertePersonnalite.stat2("Stéphane", "Thomas", "Bressani-Pedroli", NumDecouvertePersonnalite::Nature::TOUT)
     # 29 -> 11/2
     assert_equal "11/2", ::NumDecouvertePersonnalite.stat("Stéphane", "Tho", "Bressani-Pef", NumDecouvertePersonnalite::Nature::TOUT)
   end
@@ -260,6 +265,7 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   #             ::NumDecouvertePersonnalite.etat_civil("Stéphane",
   #                                                    "Thomas",
   #                                                    "Bressani-Pedroli")
+    ::NumDecouvertePersonnalite.etat_civil("Stéphane", "Thomas", "Bressani-Pedroli")
     ::NumDecouvertePersonnalite.etat_civil2("Stéphane", "Thomas", "Bressani-Pedroli")
   end
 end
