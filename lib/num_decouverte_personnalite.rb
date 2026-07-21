@@ -147,33 +147,76 @@ module NumDecouvertePersonnalite
     stat_v = stat(prenom_actif, "", "", :voyelle)
     stat_t = stat(prenom_actif, "", "", :tout)
     stat_c = stat(prenom_actif, "", "", :consonne)
+    stat_v_s = stat_v
+    stat_t_s = stat_t
+    stat_c_s = stat_c
+    n = prenom_actif
+    if n.match?(/\A[^ -]+\z/)
+      # un seul nom
+    else
+      voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
+      consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
+      total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
+      stat_v_s = voyelle[:nombre_presentation]
+      stat_t_s = total[:nombre_presentation]
+      stat_c_s = consonne[:nombre_presentation]
+    end
+
     etat_civil2.push(EtatCivil.new(
                        valeur: prenom_actif,
-                       voyelle: [[stat_v], [:final]],
-                       consonne: [[stat_c], [:final]],
-                       tout: [[stat_t], [:final]]
+                       voyelle: [[stat_v_s], [:final]],
+                       consonne: [[stat_c_s], [:final]],
+                       tout: [[stat_t_s], [:final]]
                      ))
     # prenom_sec
     stat_v = stat("", prenom_secondaire, "", :voyelle)
     stat_t = stat("", prenom_secondaire, "", :tout)
     stat_c = stat("", prenom_secondaire, "", :consonne)
+    stat_v_s = stat_v
+    stat_t_s = stat_t
+    stat_c_s = stat_c
+    n = prenom_secondaire
+    if n.match?(/\A[^ -]+\z/)
+      # un seul nom
+    else
+      voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
+      consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
+      total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
+      stat_v_s = voyelle[:nombre_presentation]
+      stat_t_s = total[:nombre_presentation]
+      stat_c_s = consonne[:nombre_presentation]
+    end
     etat_civil2.push(EtatCivil.new(
                        valeur: prenom_secondaire,
-                       voyelle: [[stat_v], [:final]],
-                       consonne: [[stat_c], [:final]],
-                       tout: [[stat_t], [:final]]
+                       voyelle: [[stat_v_s], [:final]],
+                       consonne: [[stat_c_s], [:final]],
+                       tout: [[stat_t_s], [:final]]
     ))
     # nom_de_famille
     stat_v = stat("", "", nom_de_famille, :voyelle)
     stat_t = stat("", "", nom_de_famille, :tout)
     stat_c = stat("", "", nom_de_famille, :consonne)
+    stat_v_s = stat_v
+    stat_t_s = stat_t
+    stat_c_s = stat_c
+    n = nom_de_famille
+    if n.match?(/\A[^ -]+\z/)
+      # un seul nom
+    else
+      voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
+      consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
+      total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
+      stat_v_s = voyelle[:nombre_presentation]
+      stat_t_s = total[:nombre_presentation]
+      stat_c_s = consonne[:nombre_presentation]
+    end
     etat_civil2.push(EtatCivil.new(
                        valeur: nom_de_famille,
-                       voyelle: [[stat_v], [:final]],
-                       consonne: [[stat_c], [:final]],
-                       tout: [[stat_t], [:final]]
+                       voyelle: [[stat_v_s], [:final]],
+                       consonne: [[stat_c_s], [:final]],
+                       tout: [[stat_t_s], [:final]]
                      ))
-    puts etat_civil2
+    # puts etat_civil2
     etat_civil2
   end
 
