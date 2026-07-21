@@ -121,18 +121,18 @@ module NumDecouvertePersonnalite
   # puis:    gem push num_decouverte_personalite-0.1.0.gem
   def self.etat_civil(prenom_actif, prenom_secondaire, nom_de_famille)
     result = [
-      *self.separate(prenom_actif),
-      *self.separate(prenom_secondaire),
-      *self.separate(nom_de_famille)
+      *separate(prenom_actif),
+      *separate(prenom_secondaire),
+      *separate(nom_de_famille)
     ]
     etat_civil = []
     result.each { |x|
       etat_civil.push(
         EtatCivil.new(
           valeur: x,
-          voyelle: self.chaine_de_caractere_individuelle(x, :voyelle).resultat,
-          consonne: self.chaine_de_caractere_individuelle(x, :consonne).resultat,
-          tout: self.chaine_de_caractere_individuelle(x, :tout).resultat
+          voyelle: chaine_de_caractere_individuelle(x, :voyelle).resultat,
+          consonne: chaine_de_caractere_individuelle(x, :consonne).resultat,
+          tout: chaine_de_caractere_individuelle(x, :tout).resultat
         )
       )
     }
@@ -140,11 +140,31 @@ module NumDecouvertePersonnalite
     etat_civil
   end
 
+  # Pour le cas de nom composé comme Jean-Benoit ou de nom de Famille composé comme Bressani-Pedroli
+  def self.etat_civil2(prenom_actif, prenom_secondaire, nom_de_famille)
+    etat_civil1 = etat_civil(prenom_actif, prenom_secondaire, nom_de_famille)
+    self.find_reduction(etat_civil1, :voyelle)
+
+    stat1_v = stat(prenom_actif, prenom_secondaire, nom_de_famille, :voyelle)
+    stat1_t = stat(prenom_actif, prenom_secondaire, nom_de_famille, :tout)
+    stat1_c = stat(prenom_actif, prenom_secondaire, nom_de_famille, :consonne)
+    etat_civil2 = []
+    etat_civil2.push(EtatCivil.new(
+                       valeur: prenom_actif,
+                       voyelle: [],
+                       consonne: [],
+                       tout: []
+    ))
+
+    etat_civil2
+  end
+
+
   def self.grille_inclusion(prenom_actif, prenom_secondaire, nom_de_famille)
     result = [
-      *self.separate(prenom_actif),
-      *self.separate(prenom_secondaire),
-      *self.separate(nom_de_famille)
+      *separate(prenom_actif),
+      *separate(prenom_secondaire),
+      *separate(nom_de_famille)
     ]
 
     chaine = result.join
@@ -179,7 +199,7 @@ module NumDecouvertePersonnalite
         else
           x.tout
         end
-      i = self.extrait_nombre(resultat.last[0])
+      i = extrait_nombre(resultat.last[0])
       # puts "#{x.valeur}: #{i}"
       count += i
     end
@@ -198,7 +218,7 @@ module NumDecouvertePersonnalite
         res = nombre_avec_dash
         break
       end
-      nv_s = self.niveau_superieur(count.to_s)
+      nv_s = niveau_superieur(count.to_s)
       if nv_s[:final]
         res = nv_s[:octave]
         break
@@ -260,12 +280,12 @@ module NumDecouvertePersonnalite
 
     def niveau_superieur(niveau_precedant)
       all = self::TOUS_LES_NOMBRES
-      sum = self.extract_niveau(niveau_precedant).sum
+      sum = extract_niveau(niveau_precedant).sum
 
       if MAITRE_NOMBRE.key?(sum) || NOMBRE_KARMIQUE.key?(sum) || OCTAVE.key?(sum)
         {
           sum: sum,
-          last: self.theosophique(sum),
+          last: theosophique(sum),
           octave: all[sum],
           final: true
         }
@@ -292,14 +312,14 @@ module NumDecouvertePersonnalite
         nombre_reduit: 0,
         ligne_caractere_vers_chiffre: ""
       }
-      niveau = self.niveau_1(
+      niveau = niveau_1(
         string,
         nature
       )
 
       niveaux = [niveau]
       loop do
-        resultat = self.niveau_superieur(niveau)
+        resultat = niveau_superieur(niveau)
         niveaux << resultat
         hash[:presentation] = resultat[:octave]
         hash[:nombre_reduit] = resultat[:last]
@@ -345,6 +365,32 @@ module NumDecouvertePersonnalite
       else
         valeur.to_i
       end
+    end
+
+    def find_reduction(etat_civil, type)
+      count = 0
+      record = []
+      etat_civil.each do |x|
+        resultat =
+          case type
+          when Nature::VOYELLE
+            x.voyelle
+          when Nature::CONSONNE
+            x.consonne
+            # when Nature::TOUT
+          else
+            x.tout
+          end
+        i = extrait_nombre(resultat.last[0])
+        record.push({
+          valeur: x.valeur,
+          complet: resultat.last[0],
+          reduit: i
+        })
+        count += i
+      end
+      puts record
+      record
     end
   end
 end

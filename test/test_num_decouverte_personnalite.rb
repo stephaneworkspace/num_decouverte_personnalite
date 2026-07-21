@@ -260,5 +260,6 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   #             ::NumDecouvertePersonnalite.etat_civil("Stéphane",
   #                                                    "Thomas",
   #                                                    "Bressani-Pedroli")
+    ::NumDecouvertePersonnalite.etat_civil2("Stéphane", "Thomas", "Bressani-Pedroli")
   end
 end
