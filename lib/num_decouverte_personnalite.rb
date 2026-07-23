@@ -259,8 +259,6 @@ module NumDecouvertePersonnalite
     calcul
   end
 
-
-
   def self.grille_inclusion(prenom_actif, prenom_secondaire, nom_de_famille)
     result = [
       *separate(prenom_actif),
