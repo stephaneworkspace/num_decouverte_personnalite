@@ -36,6 +36,12 @@ module NumDecouvertePersonnalite
     attr_reader  diff_cycle: String
   end
 
+  class DateApogee
+    attr_reader  date_apogee: Date
+    attr_reader  date_apogee2: Date
+    attr_reader  date_apogee3: Date
+  end
+
   TOUS_LES_VALEURS: Hash[String, Integer]
 
   module Nature
@@ -85,6 +91,8 @@ module NumDecouvertePersonnalite
   def self.etat_civil2: (String, String, String) -> Array[EtatCivil]
 
   def self.date_cycle: -> DateCycle
+
+  def self.date_apogee: -> DateApogee
 
   private
 

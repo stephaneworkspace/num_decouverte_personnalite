@@ -39,6 +39,7 @@ module NumDecouvertePersonnalite
     :apogee2,
     :appoge3,
     :appoge4,
+    :date_apogee,
     keyword_init: true
   )
 
@@ -46,6 +47,13 @@ module NumDecouvertePersonnalite
     :date_fixe_cycle,
     :date_mobile_cycle,
     :diff_cycle,
+    keyword_init: true
+  )
+
+  DateApogee = Struct.new(
+    :date_apogee,
+    :date_apogee2,
+    :date_apogee3,
     keyword_init: true
   )
 
@@ -268,7 +276,8 @@ module NumDecouvertePersonnalite
       apogee1: apogee1,
       apogee2: appoge2,
       appoge3: appoge3,
-      appoge4: appoge4
+      appoge4: appoge4,
+      date_apogee: date_apogee(jour, mois, annee)
     )
     puts calcul.inspect
     calcul
@@ -625,6 +634,19 @@ module NumDecouvertePersonnalite
         date_fixe_cycle: date_fixe,
         date_mobile_cycle: date_mobile,
         diff_cycle: diff_cycle.find { |x| x[:date] == date_mobile }
+      )
+    end
+
+    def date_apogee(jour, mois, annee)
+      chemin_de_vie = reduction_nombres(jour + mois + annee)
+
+      apogee = 36 - chemin_de_vie.nombre_reduit
+      apogee2 = apogee + 9
+      apogee3 = apogee2 + 9
+      DateApogee.new(
+        date_apogee: Date.new(annee + apogee, 1, 1),
+        date_apogee2: Date.new(annee + apogee2, 1, 1),
+        date_apogee3: Date.new(annee + apogee3, 1, 1)
       )
     end
   end
