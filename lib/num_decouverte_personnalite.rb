@@ -29,13 +29,13 @@ module NumDecouvertePersonnalite
 
   CalculTheme = Struct.new(
     :chemin_de_vie,
-    :cycle_1,
-    :cycle_2,
-    :cycle_3,
-    :apogee_1,
-    :apogee_2,
-    :appoge_3,
-    :appoge_4,
+    :cycle1,
+    :cycle2,
+    :cycle3,
+    :apogee1,
+    :apogee2,
+    :appoge3,
+    :appoge4,
     keyword_init: true
   )
 
@@ -240,23 +240,23 @@ module NumDecouvertePersonnalite
   # Pour les calculs numérologiques basé sur le chemin de vie, les cycles et les appogées
   def self.calcul_theme(jour, mois, annee)
     chemin_de_vie = reduction_nombres(jour + mois + annee)
-    cycle_1 = reduction_nombres(mois)
-    cycle_2 = reduction_nombres(jour)
-    cycle_3 = reduction_nombres(annee)
-    apogee_1 = reduction_nombres(cycle_2.nombre_reduit + cycle_1.nombre_reduit)
-    appoge_2 = reduction_nombres(cycle_2.nombre_reduit + cycle_3.nombre_reduit)
-    appoge_3 = reduction_nombres(apogee_1.nombre_reduit + appoge_2.nombre_reduit)
-    appoge_4 = reduction_nombres(cycle_1.nombre_reduit + cycle_3.nombre_reduit)
+    cycle1 = reduction_nombres(mois)
+    cycle2 = reduction_nombres(jour)
+    cycle3 = reduction_nombres(annee)
+    apogee1 = reduction_nombres(cycle2.nombre_reduit + cycle1.nombre_reduit)
+    appoge2 = reduction_nombres(cycle2.nombre_reduit + cycle3.nombre_reduit)
+    appoge3 = reduction_nombres(apogee1.nombre_reduit + appoge2.nombre_reduit)
+    appoge4 = reduction_nombres(cycle1.nombre_reduit + cycle3.nombre_reduit)
 
     calcul = CalculTheme.new(
       chemin_de_vie: chemin_de_vie,
-      cycle_1: cycle_1,
-      cycle_2: cycle_2,
-      cycle_3: cycle_3,
-      apogee_1: apogee_1,
-      apogee_2: appoge_2,
-      appoge_3: appoge_3,
-      appoge_4: appoge_4
+      cycle1: cycle1,
+      cycle2: cycle2,
+      cycle3: cycle3,
+      apogee1: apogee1,
+      apogee2: appoge2,
+      appoge3: appoge3,
+      appoge4: appoge4
     )
     puts calcul.inspect
     calcul
