@@ -621,13 +621,11 @@ module NumDecouvertePersonnalite
         end
 
       date_mobile = diff_cycle.min_by { |x| x[:ecart] }[:date]
-      dates = DateCycle.new(
+      DateCycle.new(
         date_fixe_cycle: date_fixe,
         date_mobile_cycle: date_mobile,
         diff_cycle: diff_cycle.find { |x| x[:date] == date_mobile }
       )
-      # puts dates.inspect
-      dates
     end
   end
 end
