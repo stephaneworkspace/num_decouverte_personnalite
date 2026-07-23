@@ -26,6 +26,18 @@ module NumDecouvertePersonnalite
     keyword_init: true
   )
 
+  CalculTheme = Struct.new(
+    :chemin_de_vie,
+    :cycle_1,
+    :cycle_2,
+    :cycle_3,
+    :apogee_1,
+    :apogee_2,
+    :appoge_3,
+    :appoge_4,
+    keyword_init: true
+  )
+
   # Génération des caractères unicode, sauf ce qui n'est pas associable à l'alphabet
   def self.generate_unicode_valeurs
     hash = {}
@@ -222,10 +234,28 @@ module NumDecouvertePersonnalite
     etat_civil2
   end
 
-  def self.nombres_date(jour, mois, annee)
-    calcul = jour + mois + annee
-    chemin_de_vie = reduction_nombres(calcul)
-    puts chemin_de_vie.inspect
+  def self.calcul_theme(jour, mois, annee)
+    chemin_de_vie = reduction_nombres(jour + mois + annee)
+    cycle_1 = reduction_nombres(mois)
+    cycle_2 = reduction_nombres(jour)
+    cycle_3 = reduction_nombres(annee)
+    apogee_1 = reduction_nombres(jour + mois)
+    appoge_2 = reduction_nombres(jour + annee)
+    appoge_3 = reduction_nombres(apogee_1.nombre_reduit + appoge_2.nombre_reduit)
+    appoge_4 = reduction_nombres(mois + annee)
+
+    calcul = CalculTheme.new(
+      chemin_de_vie: chemin_de_vie,
+      cycle_1: cycle_1,
+      cycle_2: cycle_2,
+      cycle_3: cycle_3,
+      apogee_1: apogee_1,
+      apogee_2: appoge_2,
+      appoge_3: appoge_3,
+      appoge_4: appoge_4
+    )
+    puts calcul.inspect
+    calcul
   end
 
 
@@ -512,9 +542,13 @@ module NumDecouvertePersonnalite
     def reduction_nombres(nombre)
       all = self::TOUS_LES_NOMBRES
       resultat = []
-      while nombre > 9
-        resultat.push(all[nombre].nil? ? nombre.to_s : all[nombre])
-        nombre = nombre.digits.sum
+      if nombre <= 9
+        resultat.push(nombre.to_s)
+      else
+        while nombre > 9
+          resultat.push(all[nombre].nil? ? nombre.to_s : all[nombre])
+          nombre = nombre.digits.sum
+        end
       end
       ReductionNombres.new(
         nombre_reduit: theosophique(nombre),

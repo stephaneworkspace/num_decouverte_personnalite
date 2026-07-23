@@ -270,6 +270,6 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   end
 
   def test_date
-    ::NumDecouvertePersonnalite.nombres_date(3,4,1986)
+    ::NumDecouvertePersonnalite.calcul_theme(3,4,1986)
   end
 end
