@@ -272,4 +272,22 @@ class TestNumDecouvertePersonnalite < Minitest::Test
   def test_date
     ::NumDecouvertePersonnalite.calcul_theme(3,4,1986)
   end
+
+  def test_reduction_nombres_19_1
+    attendu = ::NumDecouvertePersonnalite::ReductionNombres.new(
+      nombre_reduit: 1,
+      resultat: ["1990", "19/1"] # surtout pas : resultat: ["1990", "19/1", "10"]
+    )
+    obtenu = ::NumDecouvertePersonnalite.send(:reduction_nombres, 1990)
+    assert_equal attendu, obtenu
+  end
+
+  def test_reduction_nombres_14_5
+    attendu = ::NumDecouvertePersonnalite::ReductionNombres.new(
+      nombre_reduit: 5,
+      resultat: ["1922", "14/5"]
+    )
+    obtenu = ::NumDecouvertePersonnalite.send(:reduction_nombres, 1922)
+    assert_equal attendu, obtenu
+  end
 end

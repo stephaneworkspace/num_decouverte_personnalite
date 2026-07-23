@@ -239,10 +239,10 @@ module NumDecouvertePersonnalite
     cycle_1 = reduction_nombres(mois)
     cycle_2 = reduction_nombres(jour)
     cycle_3 = reduction_nombres(annee)
-    apogee_1 = reduction_nombres(jour + mois)
-    appoge_2 = reduction_nombres(jour + annee)
+    apogee_1 = reduction_nombres(cycle_2.nombre_reduit + cycle_1.nombre_reduit)
+    appoge_2 = reduction_nombres(cycle_2.nombre_reduit + cycle_3.nombre_reduit)
     appoge_3 = reduction_nombres(apogee_1.nombre_reduit + appoge_2.nombre_reduit)
-    appoge_4 = reduction_nombres(mois + annee)
+    appoge_4 = reduction_nombres(cycle_1.nombre_reduit + cycle_3.nombre_reduit)
 
     calcul = CalculTheme.new(
       chemin_de_vie: chemin_de_vie,
@@ -546,6 +546,10 @@ module NumDecouvertePersonnalite
         resultat.push(nombre.to_s)
       else
         while nombre > 9
+          if nombre == 19 # exception pour 19/1
+            resultat.push(all[nombre])
+            break
+          end
           resultat.push(all[nombre].nil? ? nombre.to_s : all[nombre])
           nombre = nombre.digits.sum
         end
