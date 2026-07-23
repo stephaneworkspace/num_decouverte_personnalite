@@ -20,14 +20,20 @@ module NumDecouvertePersonnalite
   end
 
   class CalculTheme
-    attr_reader  chemin_de_vie: ReductionNombres,
-    attr_reader  cycle_1: ReductionNombres,
-    attr_reader  cycle_2: ReductionNombres,
-    attr_reader  cycle_3: ReductionNombres,
-    attr_reader  apogee_1: ReductionNombres,
-    attr_reader  apogee_2: ReductionNombres,
-    attr_reader  appoge_3: ReductionNombres,
+    attr_reader  chemin_de_vie: ReductionNombres
+    attr_reader  cycle_1: ReductionNombres
+    attr_reader  cycle_2: ReductionNombres
+    attr_reader  cycle_3: ReductionNombres
+    attr_reader  apogee_1: ReductionNombres
+    attr_reader  apogee_2: ReductionNombres
+    attr_reader  appoge_3: ReductionNombres
     attr_reader  appoge_4: ReductionNombres
+  end
+
+  class DateCycle
+    attr_reader  date_fixe_cycle: Date
+    attr_reader  date_mobile_cycle: Date
+    attr_reader  diff_cycle: String
   end
 
   TOUS_LES_VALEURS: Hash[String, Integer]
@@ -77,6 +83,8 @@ module NumDecouvertePersonnalite
   def self.valeur_lettre: (String) -> Integer?
 
   def self.etat_civil2: (String, String, String) -> Array[EtatCivil]
+
+  def self.date_cycle: -> DateCycle
 
   private
 

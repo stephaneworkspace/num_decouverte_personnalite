@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "date"
 require_relative "num_decouverte_personnalite/version"
 
 # Calcul numérologique
@@ -36,6 +37,13 @@ module NumDecouvertePersonnalite
     :apogee2,
     :appoge3,
     :appoge4,
+    keyword_init: true
+  )
+
+  DateCycle = Struct.new(
+    :date_fixe_cycle,
+    :date_mobile_cycle,
+    :diff_cycle,
     keyword_init: true
   )
 
@@ -247,6 +255,9 @@ module NumDecouvertePersonnalite
     appoge2 = reduction_nombres(cycle2.nombre_reduit + cycle3.nombre_reduit)
     appoge3 = reduction_nombres(apogee1.nombre_reduit + appoge2.nombre_reduit)
     appoge4 = reduction_nombres(cycle1.nombre_reduit + cycle3.nombre_reduit)
+
+    date_cycle(jour, mois, annee, :productif)
+    date_cycle(jour, mois, annee, :moisson)
 
     calcul = CalculTheme.new(
       chemin_de_vie: chemin_de_vie,
@@ -571,6 +582,51 @@ module NumDecouvertePersonnalite
     def annee_universelle(annee)
       annee = annee.digits.sum while annee > 9
       annee
+    end
+
+    def date_cycle(jour, mois, annee, type)
+      ap = []
+      (0..999).each do |i|
+        ap.push([i], [annee], [annee_personnelle(jour, mois, annee + i)])
+      end
+      case type
+      when :productif
+        date_fixe =
+          Date.new(annee, mois, jour)
+              .>>(4)
+              .next_year(28) # 365 lunaisons (28ans et 4 mois)
+      when :moisson
+        date_fixe =
+          Date.new(annee, mois, jour)
+              .>>(8)
+              .next_year(56) # 365 lunaisons (28ans et 4 mois) * 2
+      end
+      diff_cycle =
+        (-100..100).filter_map do |offset|
+          annee = date_fixe.year + offset
+
+          if annee_personnelle(jour, mois, annee) == 1
+            date = Date.new(annee, 1, 1)
+            ecart = (date - date_fixe).to_i
+
+            #  puts "#{date} : #{ecart.abs} jours (#{ecart.negative? ? 'avant' : 'après'})"
+
+            {
+              date: date,
+              ecart: ecart.abs,
+              sens: ecart.negative? ? "avant" : "après"
+            }
+          end
+        end
+
+      date_mobile = diff_cycle.min_by { |x| x[:ecart] }[:date]
+      dates = DateCycle.new(
+        date_fixe_cycle: date_fixe,
+        date_mobile_cycle: date_mobile,
+        diff_cycle: diff_cycle.find { |x| x[:date] == date_mobile }
+      )
+      puts dates.inspect
+      dates
     end
   end
 end
