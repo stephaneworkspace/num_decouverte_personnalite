@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module NumDecouvertePersonnalite
-  VERSION = "26.1.7"
+  VERSION = "26.1.8"
 end
