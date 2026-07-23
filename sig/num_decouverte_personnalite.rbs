@@ -13,6 +13,12 @@ module NumDecouvertePersonnalite
     attr_reader valeur: String
     attr_reader resultat: Array[Array[String | Symbol]]
   end
+
+  class ReductionNombres
+    attr_reader nombre_reduit: Integer
+    attr_reader resultat: Array[String]
+  end
+  
   TOUS_LES_VALEURS: Hash[String, Integer]
 
   module Nature
@@ -45,6 +51,8 @@ module NumDecouvertePersonnalite
 
   def self.niveau_superieur: (String) -> Hash[Symbol, Integer | String | bool | nil]
 
+  def self.nombres_date: -> untyped
+
   def self.separate: (String) -> Array[String]
 
   def self.stat: -> Integer
@@ -62,4 +70,6 @@ module NumDecouvertePersonnalite
   private
 
   def self.extrait_nombre: -> Integer
+
+  def self.reduction_nombres: -> ReductionNombres
 end

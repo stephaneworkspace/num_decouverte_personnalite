@@ -268,4 +268,8 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     ::NumDecouvertePersonnalite.etat_civil("Stéphane", "Thomas", "Bressani-Pedroli")
     ::NumDecouvertePersonnalite.etat_civil2("Stéphane", "Thomas", "Bressani-Pedroli")
   end
+
+  def test_date
+    ::NumDecouvertePersonnalite.nombres_date(3,4,1986)
+  end
 end

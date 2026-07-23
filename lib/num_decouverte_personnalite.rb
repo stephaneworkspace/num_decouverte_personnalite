@@ -20,6 +20,11 @@ module NumDecouvertePersonnalite
     :resultat,
     keyword_init: true
   )
+  ReductionNombres = Struct.new(
+    :nombre_reduit,
+    :resultat,
+    keyword_init: true
+  )
 
   # Génération des caractères unicode, sauf ce qui n'est pas associable à l'alphabet
   def self.generate_unicode_valeurs
@@ -217,6 +222,13 @@ module NumDecouvertePersonnalite
     etat_civil2
   end
 
+  def self.nombres_date(jour, mois, annee)
+    calcul = jour + mois + annee
+    chemin_de_vie = reduction_nombres(calcul)
+    puts chemin_de_vie.inspect
+  end
+
+
 
   def self.grille_inclusion(prenom_actif, prenom_secondaire, nom_de_famille)
     result = [
@@ -263,7 +275,7 @@ module NumDecouvertePersonnalite
     end
     # puts count
     nombre_avec_dash = self::TOUS_LES_NOMBRES[count]
-    if nombre_avec_dash == nil
+    if nombre_avec_dash.nil?
       nombre_avec_dash = count.to_s
     end
     res = 0
@@ -309,7 +321,7 @@ module NumDecouvertePersonnalite
     end
     # puts count
     nombre_avec_dash = self::TOUS_LES_NOMBRES[count]
-    if nombre_avec_dash == nil
+    if nombre_avec_dash.nil?
       nombre_avec_dash = count.to_s
     end
     res = 0
@@ -496,5 +508,18 @@ module NumDecouvertePersonnalite
    #  puts record
    #  record
    #end
+
+    def reduction_nombres(nombre)
+      all = self::TOUS_LES_NOMBRES
+      resultat = []
+      while nombre > 9
+        resultat.push(all[nombre].nil? ? nombre.to_s : all[nombre])
+        nombre = nombre.digits.sum
+      end
+      ReductionNombres.new(
+        nombre_reduit: theosophique(nombre),
+        resultat: resultat
+      )
+    end
   end
 end
