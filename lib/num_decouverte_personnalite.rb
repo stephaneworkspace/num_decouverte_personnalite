@@ -185,28 +185,30 @@ module NumDecouvertePersonnalite
                        tout: [[stat_t_s], [:final]]
                      ))
     # prenom_sec
-    stat_v = stat("", prenom_secondaire, "", :voyelle)
-    stat_t = stat("", prenom_secondaire, "", :tout)
-    stat_c = stat("", prenom_secondaire, "", :consonne)
-    stat_v_s = stat_v
-    stat_t_s = stat_t
-    stat_c_s = stat_c
-    n = prenom_secondaire
-    if n.match?(/\A[^ -]+\z/)
-      # un seul nom
-      voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
-      consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
-      total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
-      stat_v_s = voyelle[:nombre_presentation]
-      stat_t_s = total[:nombre_presentation]
-      stat_c_s = consonne[:nombre_presentation]
+    if prenom_secondaire != ""
+      stat_v = stat("", prenom_secondaire, "", :voyelle)
+      stat_t = stat("", prenom_secondaire, "", :tout)
+      stat_c = stat("", prenom_secondaire, "", :consonne)
+      stat_v_s = stat_v
+      stat_t_s = stat_t
+      stat_c_s = stat_c
+      n = prenom_secondaire
+      if n.match?(/\A[^ -]+\z/)
+        # un seul nom
+        voyelle = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::VOYELLE)
+        consonne = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::CONSONNE)
+        total = chaine_de_caractere_individuelle(n, NumDecouvertePersonnalite::Nature::TOUT)
+        stat_v_s = voyelle[:nombre_presentation]
+        stat_t_s = total[:nombre_presentation]
+        stat_c_s = consonne[:nombre_presentation]
+      end
+      etat_civil2.push(EtatCivil.new(
+                         valeur: prenom_secondaire,
+                         voyelle: [[stat_v_s], [:final]],
+                         consonne: [[stat_c_s], [:final]],
+                         tout: [[stat_t_s], [:final]]
+      ))
     end
-    etat_civil2.push(EtatCivil.new(
-                       valeur: prenom_secondaire,
-                       voyelle: [[stat_v_s], [:final]],
-                       consonne: [[stat_c_s], [:final]],
-                       tout: [[stat_t_s], [:final]]
-    ))
     # nom_de_famille
     stat_v = stat("", "", nom_de_famille, :voyelle)
     stat_t = stat("", "", nom_de_famille, :tout)
@@ -234,7 +236,7 @@ module NumDecouvertePersonnalite
     etat_civil2
   end
 
-  # Pour les calculs numérologique basé sur le chemin de vie, les cycles et les appogées
+  # Pour les calculs numérologiques basé sur le chemin de vie, les cycles et les appogées
   def self.calcul_theme(jour, mois, annee)
     chemin_de_vie = reduction_nombres(jour + mois + annee)
     cycle_1 = reduction_nombres(mois)
