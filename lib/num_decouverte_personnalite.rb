@@ -33,6 +33,8 @@ module NumDecouvertePersonnalite
     :cycle1,
     :cycle2,
     :cycle3,
+    :date_cycle2,
+    :date_cycle3,
     :apogee1,
     :apogee2,
     :appoge3,
@@ -256,14 +258,13 @@ module NumDecouvertePersonnalite
     appoge3 = reduction_nombres(apogee1.nombre_reduit + appoge2.nombre_reduit)
     appoge4 = reduction_nombres(cycle1.nombre_reduit + cycle3.nombre_reduit)
 
-    date_cycle(jour, mois, annee, :productif)
-    date_cycle(jour, mois, annee, :moisson)
-
-    calcul = CalculTheme.new(
+    calcul =CalculTheme.new(
       chemin_de_vie: chemin_de_vie,
       cycle1: cycle1,
       cycle2: cycle2,
       cycle3: cycle3,
+      date_cycle2: date_cycle(jour, mois, annee, :productif),
+      date_cycle3: date_cycle(jour, mois, annee, :moisson),
       apogee1: apogee1,
       apogee2: appoge2,
       appoge3: appoge3,
@@ -625,7 +626,7 @@ module NumDecouvertePersonnalite
         date_mobile_cycle: date_mobile,
         diff_cycle: diff_cycle.find { |x| x[:date] == date_mobile }
       )
-      puts dates.inspect
+      # puts dates.inspect
       dates
     end
   end
