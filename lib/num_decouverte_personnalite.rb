@@ -258,7 +258,7 @@ module NumDecouvertePersonnalite
     appoge3 = reduction_nombres(apogee1.nombre_reduit + appoge2.nombre_reduit)
     appoge4 = reduction_nombres(cycle1.nombre_reduit + cycle3.nombre_reduit)
 
-    calcul =CalculTheme.new(
+    calcul = CalculTheme.new(
       chemin_de_vie: chemin_de_vie,
       cycle1: cycle1,
       cycle2: cycle2,
