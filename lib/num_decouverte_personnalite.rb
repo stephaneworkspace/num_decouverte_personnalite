@@ -418,9 +418,7 @@ module NumDecouvertePersonnalite
     end
 
     def theosophique(nombre)
-      while nombre > 9
-        nombre = nombre.digits.sum
-      end
+      nombre = nombre.digits.sum while nombre > 9
 
       nombre
     end
@@ -559,6 +557,19 @@ module NumDecouvertePersonnalite
         nombre_reduit: theosophique(nombre),
         resultat: resultat
       )
+    end
+
+    def annee_personnelle(jour_naissance, mois_naissance, annee_universelle)
+      jour = reduction_nombres(jour_naissance)
+      mois = reduction_nombres(mois_naissance)
+      annee_universelle = annee_universelle(annee_universelle)
+      annee_personnelle = reduction_nombres(jour.nombre_reduit + mois.nombre_reduit + annee_universelle)
+      annee_personnelle.nombre_reduit
+    end
+
+    def annee_universelle(annee)
+      annee = annee.digits.sum while annee > 9
+      annee
     end
   end
 end

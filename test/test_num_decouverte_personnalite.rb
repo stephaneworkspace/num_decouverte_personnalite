@@ -290,4 +290,13 @@ class TestNumDecouvertePersonnalite < Minitest::Test
     obtenu = ::NumDecouvertePersonnalite.send(:reduction_nombres, 1922)
     assert_equal attendu, obtenu
   end
+
+  def test_annee_universelle
+    assert_equal 1, ::NumDecouvertePersonnalite.send(:annee_universelle, 2026)
+  end
+
+  def test_annee_personnelle
+    assert_equal 7, ::NumDecouvertePersonnalite.send(:annee_personnelle, 3, 4, 2025)
+    assert_equal 8, ::NumDecouvertePersonnalite.send(:annee_personnelle, 3, 4, 2026)
+  end
 end
