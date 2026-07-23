@@ -37,8 +37,8 @@ module NumDecouvertePersonnalite
     :date_cycle3,
     :apogee1,
     :apogee2,
-    :appoge3,
-    :appoge4,
+    :apogee3,
+    :apogee4,
     :date_apogee,
     keyword_init: true
   )
@@ -275,8 +275,8 @@ module NumDecouvertePersonnalite
       date_cycle3: date_cycle(jour, mois, annee, :moisson),
       apogee1: apogee1,
       apogee2: appoge2,
-      appoge3: appoge3,
-      appoge4: appoge4,
+      apogee3: appoge3,
+      apogee4: appoge4,
       date_apogee: date_apogee(jour, mois, annee)
     )
     puts calcul.inspect
