@@ -234,6 +234,7 @@ module NumDecouvertePersonnalite
     etat_civil2
   end
 
+  # Pour les calculs numérologique basé sur le chemin de vie, les cycles et les appogées
   def self.calcul_theme(jour, mois, annee)
     chemin_de_vie = reduction_nombres(jour + mois + annee)
     cycle_1 = reduction_nombres(mois)
