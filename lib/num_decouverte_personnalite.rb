@@ -2,6 +2,7 @@
 
 require_relative "num_decouverte_personnalite/version"
 
+# Calcul numérologique
 module NumDecouvertePersonnalite
   class Error < StandardError; end
 
